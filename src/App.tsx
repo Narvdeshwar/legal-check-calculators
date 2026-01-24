@@ -1,35 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { MaintenanceCalculator } from './modules/maintenance/ui/MaintenanceCalculator';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+    <div className="min-h-screen w-full flex flex-col bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-100 via-slate-300 to-slate-200 dark:from-slate-800 dark:via-slate-950 dark:to-black text-slate-900 dark:text-slate-100 font-sans">
+      <header className="sticky top-0 z-50 py-4 text-center space-y-1 bg-slate-50/80 dark:bg-black/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 transition-all duration-300">
+        <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-500 dark:from-slate-100 dark:to-slate-400">
+          Maintenance Estimator
+        </h1>
+        <p className="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-widest">
+          India • Legal Check
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      </header>
+
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <MaintenanceCalculator />
+      </main>
+
+      <footer className="flex-none text-center py-6 text-xs text-slate-400 border-t border-slate-200 dark:border-slate-800/50 bg-white/50 dark:bg-black/50 backdrop-blur-sm">
+        <p>© {new Date().getFullYear()} Legal Check Calculators. Designed for clarity.</p>
+      </footer>
+    </div>
+  );
 }
 
-export default App
+export default App;
