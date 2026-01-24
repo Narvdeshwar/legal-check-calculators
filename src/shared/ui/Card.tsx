@@ -1,14 +1,13 @@
 import React from 'react';
 
-interface CardProps {
-    children: React.ReactNode;
-    className?: string;
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
     title?: string;
 }
 
-export const Card: React.FC<CardProps> = ({ children, className = '', title }) => {
+export const Card: React.FC<CardProps> = ({ children, className = '', title, ...props }) => {
     return (
-        <div className={`
+        <div
+            className={`
       relative overflow-hidden
       bg-white/40 dark:bg-slate-900/40 
       backdrop-blur-2xl 
@@ -19,7 +18,9 @@ export const Card: React.FC<CardProps> = ({ children, className = '', title }) =
       transition-all duration-300 ease-out
       hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]
       ${className}
-    `}>
+    `}
+            {...props}
+        >
             {title && (
                 <h3 className="text-xl font-semibold mb-4 text-slate-800 dark:text-slate-100 tracking-tight">
                     {title}
