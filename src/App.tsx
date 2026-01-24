@@ -1,4 +1,5 @@
 import { MaintenanceCalculator } from './modules/maintenance/ui/MaintenanceCalculator';
+import { FAQSection } from './modules/maintenance/ui/FAQSection';
 
 function App() {
   return (
@@ -12,8 +13,9 @@ function App() {
         </p>
       </header>
 
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-1 w-full max-w-[95%] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <MaintenanceCalculator />
+        <FAQSection />
       </main>
 
       <footer className="flex-none text-center py-6 text-xs text-slate-400 border-t border-slate-200 dark:border-slate-800/50 bg-white/50 dark:bg-black/50 backdrop-blur-sm">
