@@ -1,36 +1,69 @@
-import type { CalculatorInput, CalculationResult } from './types';
+import type { CalculatorInput, CalculationResult, Region } from './types';
+
+const REGION_CONFIG: Record<Region, { 
+    currencySymbol: string; 
+    basePercentage: number; 
+    maxCap: number; 
+    legalContext: string;
+}> = {
+    'india': {
+        currencySymbol: '₹',
+        basePercentage: 0.25,
+        maxCap: 0.50,
+        legalContext: 'Supreme Court guidelines (e.g., Kulbhushan Kumar vs Raj Kumari)'
+    },
+    'us': {
+        currencySymbol: '$',
+        basePercentage: 0.20,
+        maxCap: 0.40,
+        legalContext: 'Standard US State Guidelines (e.g., California/Florida models)'
+    },
+    'mexico': {
+        currencySymbol: '$',
+        basePercentage: 0.15,
+        maxCap: 0.50,
+        legalContext: 'Mexico Civil Code standards (Alimentos)'
+    },
+    'romania': {
+        currencySymbol: 'RON ',
+        basePercentage: 0.25,
+        maxCap: 0.33,
+        legalContext: 'Romanian Civil Code (Art. 389 - Pensie de întreținere)'
+    },
+    'ireland': {
+        currencySymbol: '€',
+        basePercentage: 0.25,
+        maxCap: 0.40,
+        legalContext: 'Irish Family Law (Judicial Separation and Family Law Reform Act)'
+    }
+};
 
 export const calculateMaintenance = (input: CalculatorInput): CalculationResult => {
-    const { income, family, cityType, isWifeHomemaker } = input;
+    const { income, family, cityType, isWifeHomemaker, region } = input;
+    const config = REGION_CONFIG[region || 'india'];
 
-    // 1. Base Rule: 20-30% of income difference (Net Disposable Income)
-    // Converting input to numbers to ensure safety
+    // 1. Base Rule
     const husbandIncome = Number(income.husbandMonthlyIncome) || 0;
     const wifeIncome = Number(income.wifeMonthlyIncome) || 0;
 
     const incomeDifference = Math.max(0, husbandIncome - wifeIncome);
 
-    // If wife earns more, usually no maintenance or very minimal (case specific), 
-    // but here we focus on husband paying wife as per common requirement.
-    // If husband income is less or equal, base maintenance is 0.
     if (husbandIncome <= wifeIncome) {
         return {
             monthlyMaintenanceAmount: 0,
+            currencySymbol: config.currencySymbol,
+            legalContext: config.legalContext,
             breakdown: {
                 baseAmount: 0,
                 modifiers: { duration: 0, children: 0, city: 0 },
                 capApplied: false
             },
-            calculationNote: "Wife's income is equal to or greater than Husband's income. Generally, no maintenance is awarded in this scenario."
+            calculationNote: `Wife's income is equal to or greater than Husband's income. Generally, no maintenance is awarded in this scenario (${config.legalContext}).`
         };
     }
 
-    // Base Calculation (25% average of difference)
-    // Standard practice is often 25% of husband's net income if wife has no income,
-    // or 25% of the *difference* in incomes.
-    // We'll use 25% of the difference as the starting base.
-    let basePercentage = 0.25;
-    let currentAmount = incomeDifference * basePercentage;
+    // Base Calculation
+    let currentAmount = incomeDifference * config.basePercentage;
     const baseAmount = currentAmount;
 
     // 2. Modifiers
@@ -38,32 +71,18 @@ export const calculateMaintenance = (input: CalculatorInput): CalculationResult 
     let childrenBonus = 0;
     let cityBonus = 0;
 
-    // a) Marriage > 10 years -> +5% of base difference (simulating ~ +5% weight)
-    // Implementation: We add percentage points to the base logic or add flat amount?
-    // Requirement: "Marriage > 10 years -> +5%"
-    // We interpret this as increasing the maintenance share by 5% of the difference.
+    // a) Marriage duration
     if (family.marriageDurationYears > 10) {
         durationBonus = incomeDifference * 0.05;
     }
 
-    // b) Children -> +5-10% (per child or total? "Children -> +5-10%")
-    // We'll calculate dependent children support.
-    // If wife has custody, she needs more.
+    // b) Children
     if (family.dependentChildren > 0 && family.custody === 'wife') {
-        // 5% per child, capped at 10% total for simplicity in this version, 
-        // or as requirement says "+5-10%". Let's do 5% per child up to 2 children.
         const childPercentage = Math.min(family.dependentChildren * 0.05, 0.10);
         childrenBonus = incomeDifference * childPercentage;
-    } else if (family.dependentChildren > 0 && family.custody === 'shared') {
-        // Shared custody might imply less maintenance for children, 
-        // but we'll leave it as 0 bonus for now or small token? 
-        // Let's stick strictly to requirement "Children -> +5-10%". 
-        // We assume this applies when the recipient (wife) supports the children.
-        // If husband has custody, wife doesn't get child support portion.
-        childrenBonus = 0;
     }
 
-    // c) Metro city -> +10% (Higher cost of living)
+    // c) City Type
     if (cityType === 'metro') {
         cityBonus = incomeDifference * 0.10;
     } else if (cityType === 'tier-1') {
@@ -72,34 +91,26 @@ export const calculateMaintenance = (input: CalculatorInput): CalculationResult 
 
     currentAmount = baseAmount + durationBonus + childrenBonus + cityBonus;
 
-    // 3. Cap Logic / Reasonable Living Cost
-    // "Cannot exceed reasonable living cost"
-    // "Homemaker handling"
-
+    // 3. Cap Logic
     let capApplied = false;
-    let capReason = '';
 
-    // Hard Cap: Maintenance generally shouldn't exceed 1/3rd to 50% of Husband's Income
-    // The Supreme Court of India in *Kulbhushan Kumar vs Raj Kumari* set 25% of husband's net income as a benchmark.
-    // However, total maintenance including varying factors can go higher but usually capped at 50%.
-
-    const absoluteMaxCap = husbandIncome * 0.50;
+    const absoluteMaxCap = husbandIncome * config.maxCap;
 
     if (currentAmount > absoluteMaxCap) {
         currentAmount = absoluteMaxCap;
         capApplied = true;
-        capReason = "Capped at 50% of Husband's Income to ensure his survivability.";
     }
 
-    // Homemaker handling:
-    // We use isWifeHomemaker to add to the note, ensuring it's used.
-    let note = "Based on ~25% of income difference + modifiers for lifestyle and liabilities.";
+    // Note construction
+    let note = `Estimated based on ${config.basePercentage * 100}% of income difference + jurisdictional modifiers (${config.legalContext}).`;
     if (isWifeHomemaker && wifeIncome === 0) {
-        note += " Considered homemaker status.";
+        note += " Considered homemaker/non-earning spouse status.";
     }
 
     return {
         monthlyMaintenanceAmount: Math.round(currentAmount),
+        currencySymbol: config.currencySymbol,
+        legalContext: config.legalContext,
         breakdown: {
             baseAmount: Math.round(baseAmount),
             modifiers: {
@@ -108,7 +119,7 @@ export const calculateMaintenance = (input: CalculatorInput): CalculationResult 
                 city: Math.round(cityBonus),
             },
             capApplied,
-            capReason
+            capReason: capApplied ? `Capped at ${config.maxCap * 100}% of gross income per ${config.legalContext}` : ''
         },
         calculationNote: note
     };

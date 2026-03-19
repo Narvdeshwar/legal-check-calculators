@@ -1,3 +1,4 @@
+export type Region = 'india' | 'us' | 'mexico' | 'romania' | 'ireland';
 export type CityType = 'metro' | 'tier-1' | 'tier-2-rural';
 
 export interface IncomeDetails {
@@ -5,21 +6,24 @@ export interface IncomeDetails {
     wifeMonthlyIncome: number;
 }
 
-export interface FamilyDetails {
-    marriageDurationYears: number;
-    dependentChildren: number;
-    custody: 'husband' | 'wife' | 'shared' | 'none';
-}
-
 export interface CalculatorInput {
+    region: Region;
     income: IncomeDetails;
     family: FamilyDetails;
     cityType: CityType;
     isWifeHomemaker: boolean;
 }
 
+export interface FamilyDetails {
+    marriageDurationYears: number;
+    dependentChildren: number;
+    custody: 'none' | 'wife' | 'husband' | 'shared';
+}
+
 export interface CalculationResult {
     monthlyMaintenanceAmount: number;
+    currencySymbol: string;
+    legalContext: string;
     breakdown: {
         baseAmount: number;
         modifiers: {

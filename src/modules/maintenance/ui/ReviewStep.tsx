@@ -1,76 +1,102 @@
 import React from 'react';
-import type { CalculationResult } from '../domain/types';
 import { Card } from '../../../shared/ui/Card';
 import { Button } from '../../../shared/ui/Button';
+import type { CalculationResult } from '../domain/types';
+import type { Translations } from '../domain/translations';
 
 interface ReviewStepProps {
     result: CalculationResult;
+    t: Translations;
     onReset: () => void;
 }
 
-export const ReviewStep: React.FC<ReviewStepProps> = ({ result, onReset }) => {
-    const formatCurrency = (amount: number) =>
-        new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(amount);
+export const ReviewStep: React.FC<ReviewStepProps> = ({ result, t, onReset }) => {
+    const formatCurrency = (amount: number) => {
+        const currencyCode = result.currencySymbol === '₹' ? 'INR' 
+                        : result.currencySymbol.trim() === 'RON' ? 'RON' 
+                        : result.currencySymbol === '€' ? 'EUR' 
+                        : 'USD';
+        return new Intl.NumberFormat('en-IN', {
+            style: 'currency',
+            currency: currencyCode,
+            currencyDisplay: 'symbol',
+            maximumFractionDigits: 0,
+        }).format(amount).replace(/INR|RON|USD|EUR/g, result.currencySymbol);
+    };
 
     return (
-        <div className="space-y-6 animate-fade-in-up">
-            <Card className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-slate-900 dark:to-slate-950 border-amber-200 dark:border-slate-800">
-                <h2 className="text-center text-sm font-semibold uppercase tracking-widest text-slate-500 mb-2">
-                    Estimated Monthly Maintenance
-                </h2>
-                <div className="text-center mb-6">
-                    <span className="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-orange-500">
-                        {formatCurrency(result.monthlyMaintenanceAmount)}
-                    </span>
-                    <p className="text-xs text-slate-400 mt-2">per month</p>
+        <Card className="animate-scale-in border-amber-500/20 bg-amber-50/30 dark:bg-amber-500/5 relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-4">
+                <div className="w-12 h-12 bg-amber-500/10 rounded-full flex items-center justify-center text-amber-600">
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+            </div>
+
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-6">{t.result.howCalculated}</h3>
+
+            <div className="space-y-6">
+                <div className="text-center p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <p className="text-sm text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wider font-bold">{t.result.estimatedTitle}</p>
+                    <div className="flex items-baseline justify-center space-x-2">
+                        <span className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white">
+                            {formatCurrency(result.monthlyMaintenanceAmount)}
+                        </span>
+                        <span className="text-slate-500 font-medium">/ {t.result.perMonth}</span>
+                    </div>
                 </div>
 
-                <div className="space-y-3 text-sm border-t border-slate-200 dark:border-slate-800/50 pt-4">
-                    <div className="flex justify-between">
-                        <span className="text-slate-600 dark:text-slate-400">Base Amount</span>
-                        <span className="font-medium">{formatCurrency(result.breakdown.baseAmount)}</span>
+                <div className="space-y-3 px-2">
+                    <div className="flex justify-between text-slate-600 dark:text-slate-400">
+                        <span>{t.result.baseAmount}</span>
+                        <span className="font-semibold">{formatCurrency(result.breakdown.baseAmount)}</span>
                     </div>
 
                     {result.breakdown.modifiers.duration > 0 && (
                         <div className="flex justify-between text-green-600 dark:text-green-400">
-                            <span>Long Marriage Bonus</span>
+                            <span>{t.result.bonusDuration}</span>
                             <span>+ {formatCurrency(result.breakdown.modifiers.duration)}</span>
                         </div>
                     )}
 
                     {result.breakdown.modifiers.children > 0 && (
                         <div className="flex justify-between text-green-600 dark:text-green-400">
-                            <span>Child Support</span>
+                            <span>{t.result.bonusChildren}</span>
                             <span>+ {formatCurrency(result.breakdown.modifiers.children)}</span>
                         </div>
                     )}
 
-                    {result.breakdown.modifiers.city > 0 && (
-                        <div className="flex justify-between text-slate-500">
-                            <span>City Adjustment</span>
-                            <span>+ {formatCurrency(result.breakdown.modifiers.city)}</span>
-                        </div>
-                    )}
-
-                    {result.breakdown.capApplied && (
-                        <div className="mt-4 p-3 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs text-slate-500">
-                            <span className="font-semibold text-amber-600">Note:</span> {result.breakdown.capReason}
+                    {result.breakdown.modifiers.city !== 0 && (
+                        <div className={`flex justify-between ${result.breakdown.modifiers.city > 0 ? 'text-green-600' : 'text-slate-500'}`}>
+                            <span>{t.result.adjustmentCity}</span>
+                            <span>{result.breakdown.modifiers.city > 0 ? '+' : ''} {formatCurrency(result.breakdown.modifiers.city)}</span>
                         </div>
                     )}
                 </div>
-            </Card>
 
-            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 text-sm text-slate-600 dark:text-slate-400">
-                <h4 className="font-semibold text-slate-900 dark:text-slate-100 mb-2">How this is calculated?</h4>
-                <p>{result.calculationNote}</p>
-                <p className="mt-2 text-xs italic opacity-75">
-                    Disclaimer: This is an estimation based on general application of laws. Actual court orders vary significantly case-by-case.
-                </p>
+                <div className="p-4 bg-slate-900/5 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed italic">
+                        <span className="font-bold not-italic block mb-1 text-slate-700 dark:text-slate-300">
+                            {t.result.note} {result.legalContext}
+                        </span>
+                        {result.calculationNote}
+                    </p>
+                </div>
+
+                <div className="pt-4 space-y-4">
+                    <p className="text-[10px] text-slate-400 text-center uppercase tracking-tighter">
+                        {t.result.disclaimer}
+                    </p>
+                    <Button
+                        variant="outline"
+                        onClick={onReset}
+                        className="w-full border-slate-200 dark:border-slate-800"
+                    >
+                        {t.result.calculateAgain}
+                    </Button>
+                </div>
             </div>
-
-            <Button onClick={onReset} variant="outline" className="w-full justify-center">
-                Calculate Again
-            </Button>
-        </div>
+        </Card>
     );
 };

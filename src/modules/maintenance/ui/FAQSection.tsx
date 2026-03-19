@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Card } from '../../../shared/ui/Card';
+import type { Region } from '../domain/types';
+import type { Translations } from '../domain/translations';
 
 interface FAQItemProps {
     question: string;
@@ -36,38 +38,107 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
     );
 };
 
-export const FAQSection: React.FC = () => {
-    const faqs = [
+interface FAQSectionProps {
+    region: Region;
+    t: Translations;
+}
+
+export const FAQSection: React.FC<FAQSectionProps> = ({ region, t }) => {
+    const allFaqs: Record<Region, { question: string, answer: string }[]> = {
+        india: [
+            {
+                question: "How is maintenance calculated in India?",
+                answer: "There is no fixed formula in Indian law, but the Supreme Court (Kulbhushan Kumar vs. Raj Kumari) has set a precedent of approximately 25% of the husband's net monthly income as a reasonable amount for the wife."
+            },
+            {
+                question: "What refers to 'Class I City' or 'Metro' in India?",
+                answer: "Metro cities (like Delhi, Mumbai, Bangalore) have higher costs of living. Courts often adjust the maintenance amount to reflect the cost of living in the wife's place of residence."
+            }
+        ],
+        us: [
+            {
+                question: "How is alimony calculated in the US?",
+                answer: "Alimony (spousal support) varies by state. Many states use a formula like 20-30% of the difference between spouses' gross incomes, often capped at 40% of the combined income."
+            },
+            {
+                question: "Is alimony taxable in the US?",
+                answer: "Since the 2018 Tax Cuts and Jobs Act, for agreements signed after Dec 31, 2018, alimony is no longer tax-deductible for the payer nor taxable income for the recipient at the federal level."
+            }
+        ],
+        mexico: [
+            {
+                question: "How does 'Alimentos' work in Mexico?",
+                answer: "In Mexico, maintenance (alimentos) is based on the principle of 'proporcionalidad'—the needs of the recipient and the ability of the payer. It often ranges from 15% to 20% per dependent."
+            },
+            {
+                question: "How long does maintenance last in Mexico?",
+                answer: "Typically, it lasts for a duration equal to the length of the marriage, though it can vary based on the specific civil code of the Mexican state (e.g., CDMX vs. Jalisco)."
+            }
+        ],
+        romania: [
+            {
+                question: "How is 'Pensie de întreținere' calculated in Romania?",
+                answer: "In Romania, alimony for a spouse in need is limited to 1/3 of the payer's net income. For children, it's 25% for one child, 33% for two, and 50% for three or more, but the total cannot exceed half of the payer's income."
+            },
+            {
+                question: "When does alimony end in Romania?",
+                answer: "Spousal alimony usually ends upon remarriage of the recipient or after a period equal to the marriage duration (not exceeding 5 years in some cases of divorce by fault)."
+            }
+        ],
+        ireland: [
+            {
+                question: "How is maintenance determined in Ireland?",
+                answer: "In Ireland, maintenance is based on the 'proper provision' principle. The court considers the needs, resources, and earning capacity of both spouses and any dependent children."
+            },
+            {
+                question: "What is the maximum limit for child maintenance in Ireland?",
+                answer: "In the District Court, the maximum maintenance order is currently €150 per week per child and €500 per week for a spouse. Higher amounts can be awarded in the Circuit or High Court."
+            }
+        ]
+    };
+
+    const commonFaqs = [
         {
-            question: "How is maintenance calculated in India?",
-            answer: "There is no fixed formula in Indian law, but the Supreme Court (Kulbhushan Kumar vs. Raj Kumari) has set a precedent of approximately 25% of the husband's net monthly income as a reasonable amount for the wife. The court also considers the husband's liabilities and standard of living."
-        },
-        {
-            question: "Can a working wife claim maintenance?",
-            answer: "Yes, a working wife can claim maintenance if her income is insufficient to maintain the standard of living she was accustomed to in her matrimonial home. The court looks at the income gap between spouses."
+            question: "Can a working spouse claim maintenance?",
+            answer: "Yes, if their income is insufficient to maintain the standard of living they were accustomed to. The court looks at the income gap between spouses."
         },
         {
             question: "Is this calculator legally binding?",
-            answer: "No, this calculator provides an estimate based on common legal precedents (like the 25% rule). Actual maintenance is decided by the court on a case-to-case basis considering many factors like conduct, assets, liabilities, and family responsibilities."
+            answer: "No, this calculator provides an estimate based on common legal models. Actual maintenance is decided by the court considering conduct, assets, and liabilities."
         },
         {
-            question: "What refers to 'Class I City' or 'Metro'?",
-            answer: "Living costs vary by city. Metro cities (like Delhi, Mumbai, Bangalore) have higher costs of living compared to Tier-2 cities or rural areas. Courts often adjust the maintenance amount to reflect the cost of living in the wife's place of residence."
-        },
-        {
-            question: "Does child custody affect maintenance?",
-            answer: "Absolutely. If the wife has custody of minor children, the maintenance amount will include a component for the child's upbringing, education, and medical needs, separate from or in addition to spousal maintenance."
+            question: "How does child custody affect maintenance?",
+            answer: "If one parent has primary custody, the maintenance amount typically includes a component for child support (upbringing, education, medical needs)."
         }
     ];
 
+    const regionFaqs = allFaqs[region] || allFaqs.india;
+    const faqs = [...regionFaqs, ...commonFaqs];
+
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqs.map(f => ({
+            "@type": "Question",
+            "name": f.question,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": f.answer
+            }
+        }))
+    };
+
     return (
         <section className="mt-12 w-full mx-auto">
+            <script type="application/ld+json">
+                {JSON.stringify(jsonLd)}
+            </script>
             <div className="text-center mb-8">
                 <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2">
-                    Frequently Asked Questions
+                    {t.faq.title}
                 </h2>
                 <p className="text-slate-500 dark:text-slate-400">
-                    Common queries about maintenance and alimony laws in India.
+                    {t.faq.subtitle}
                 </p>
             </div>
 
