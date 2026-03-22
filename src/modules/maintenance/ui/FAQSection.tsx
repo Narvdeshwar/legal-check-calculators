@@ -94,6 +94,36 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ region, t }) => {
                 question: "What is the maximum limit for child maintenance in Ireland?",
                 answer: "In the District Court, the maximum maintenance order is currently €150 per week per child and €500 per week for a spouse. Higher amounts can be awarded in the Circuit or High Court."
             }
+        ],
+        uk: [
+            {
+                question: "How is spousal maintenance calculated in the UK?",
+                answer: "There is no set formula in England and Wales. The court calculates maintenance based on the 'needs' of the recipient and the 'ability to pay' of the payer, aiming for a fair transition to independence."
+            },
+            {
+                question: "How long is spousal maintenance paid for in the UK?",
+                answer: "It can be for a fixed term (years) or 'joint lives' (until death or remarriage). Recent trends favor 'term orders' to encourage financial independence."
+            }
+        ],
+        canada: [
+            {
+                question: "What are the Spousal Support Advisory Guidelines (SSAG)?",
+                answer: "The SSAG are a set of informal guidelines used across Canada to determine the range and duration of spousal support. They use formulas based on whether there are children and the length of the marriage."
+            },
+            {
+                question: "Is spousal support taxable in Canada?",
+                answer: "Yes, periodic spousal support payments are generally taxable income for the recipient and tax-deductible for the payer, provided they are made under a court order or written agreement."
+            }
+        ],
+        australia: [
+            {
+                question: "How does spousal maintenance work in Australia?",
+                answer: "In Australia, a person has a responsibility to financially maintain their former spouse if that person cannot meet their own reasonable expenses and their former spouse has the capacity to pay."
+            },
+            {
+                question: "What is the time limit for claiming maintenance in Australia?",
+                answer: "Applications must be made within 12 months of a divorce becoming final or within 2 years of a de facto relationship ending."
+            }
         ]
     };
 

@@ -35,6 +35,24 @@ const REGION_CONFIG: Record<Region, {
         basePercentage: 0.25,
         maxCap: 0.40,
         legalContext: 'Irish Family Law (Judicial Separation and Family Law Reform Act)'
+    },
+    'uk': {
+        currencySymbol: '£',
+        basePercentage: 0.25,
+        maxCap: 0.40,
+        legalContext: 'UK Matrimonial Causes Act 1973 (Needs-based assessment)'
+    },
+    'canada': {
+        currencySymbol: '$',
+        basePercentage: 0.20,
+        maxCap: 0.45,
+        legalContext: 'Canada Spousal Support Advisory Guidelines (SSAG)'
+    },
+    'australia': {
+        currencySymbol: '$',
+        basePercentage: 0.20,
+        maxCap: 0.40,
+        legalContext: 'Australian Family Law Act 1975 (Needs & Capacity model)'
     }
 };
 

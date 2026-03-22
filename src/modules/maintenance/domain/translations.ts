@@ -60,7 +60,7 @@ export const translations: Record<Region, Translations> = {
     us: {
         header: {
             title: "Maintenance Estimator",
-            subtitle: "US • India • Mexico • Romania • Legal Check"
+            subtitle: "US • India • Mexico • UK • Australia • Canada • Legal Check"
         },
         jurisdiction: {
             title: "Regional Jurisdiction",
@@ -115,7 +115,7 @@ export const translations: Record<Region, Translations> = {
     india: {
         header: {
             title: "Maintenance Estimator",
-            subtitle: "US • India • Mexico • Romania • Legal Check"
+            subtitle: "US • India • Mexico • UK • Australia • Canada • Legal Check"
         },
         jurisdiction: {
             title: "Regional Jurisdiction",
@@ -170,7 +170,7 @@ export const translations: Record<Region, Translations> = {
     mexico: {
         header: {
             title: "Estimador de Pensión",
-            subtitle: "EE. UU. • India • México • Rumania • Control Legal"
+            subtitle: "EE. UU. • India • México • Reino Unido • Australia • Canadá • Control Legal"
         },
         jurisdiction: {
             title: "Jurisdicción Regional",
@@ -225,7 +225,7 @@ export const translations: Record<Region, Translations> = {
     romania: {
         header: {
             title: "Calculator Pensie Alimentară",
-            subtitle: "SUA • India • Mexic • România • Control Legal"
+            subtitle: "SUA • India • Mexic • Regatul Unit • Australia • Canada • Control Legal"
         },
         jurisdiction: {
             title: "Jurisdicție Regională",
@@ -280,7 +280,7 @@ export const translations: Record<Region, Translations> = {
     ireland: {
         header: {
             title: "Maintenance Estimator",
-            subtitle: "US • India • Mexico • Romania • Ireland • Legal Check"
+            subtitle: "UK • Australia • Canada • US • India • Mexico • Ireland • Legal Check"
         },
         jurisdiction: {
             title: "Regional Jurisdiction",
@@ -330,6 +330,171 @@ export const translations: Record<Region, Translations> = {
         faq: {
             title: "Frequently Asked Questions",
             subtitle: "Common queries about maintenance and alimony laws in Ireland."
+        }
+    },
+    uk: {
+        header: {
+            title: "Maintenance Estimator",
+            subtitle: "UK • Australia • Canada • US • India • Mexico • Ireland • Legal Check"
+        },
+        jurisdiction: {
+            title: "Regional Jurisdiction",
+            subtitle: "Select your country to apply relevant legal standards."
+        },
+        financials: {
+            title: "Financial Details",
+            subtitle: "Enter monthly income details (UK).",
+            husbandIncome: "Husband's Monthly Income",
+            wifeIncome: "Wife's Monthly Income"
+        },
+        family: {
+            title: "Family & Context",
+            subtitle: "Duration of marriage and dependents affect the calculation.",
+            marriageDuration: "Marriage Duration (Years)",
+            children: "Children",
+            custody: "Child Custody",
+            cityType: "Location Type",
+            homemaker: "Is Wife a Homemaker?",
+            custodyOptions: {
+                none: "Who has custody?",
+                wife: "Wife",
+                husband: "Husband",
+                shared: "Shared"
+            },
+            cityOptions: {
+                metro: "London / Major City",
+                tier1: "Town / Suburban",
+                tier2: "Rural Area"
+            }
+        },
+        result: {
+            calculate: "Calculate Maintenance",
+            readyTitle: "Ready to Estimate",
+            readySubtitle: "Fill in the details on the left and click \"Calculate\" to see the estimated monthly maintenance amount.",
+            estimatedTitle: "Estimated Monthly Maintenance",
+            perMonth: "per month",
+            baseAmount: "Base Amount",
+            bonusDuration: "Long Marriage Bonus",
+            bonusChildren: "Child Support",
+            adjustmentCity: "City Adjustment",
+            note: "Note:",
+            howCalculated: "How this is calculated?",
+            disclaimer: "Disclaimer: In the UK, no fixed formula exists; courts rule based on 'needs' and 'fairness'. This is a rough estimation only.",
+            calculateAgain: "Calculate Again"
+        },
+        faq: {
+            title: "Frequently Asked Questions",
+            subtitle: "Common queries about maintenance and alimony laws in the United Kingdom."
+        }
+    },
+    canada: {
+        header: {
+            title: "Maintenance Estimator",
+            subtitle: "Canada • UK • Australia • US • India • Mexico • Ireland • Legal Check"
+        },
+        jurisdiction: {
+            title: "Regional Jurisdiction",
+            subtitle: "Select your country to apply relevant legal standards."
+        },
+        financials: {
+            title: "Financial Details",
+            subtitle: "Enter monthly income details (CANADA).",
+            husbandIncome: "Husband's Monthly Income",
+            wifeIncome: "Wife's Monthly Income"
+        },
+        family: {
+            title: "Family & Context",
+            subtitle: "Duration of marriage and dependents affect the calculation.",
+            marriageDuration: "Marriage Duration (Years)",
+            children: "Children",
+            custody: "Child Custody",
+            cityType: "Area Type",
+            homemaker: "Is Wife a Homemaker?",
+            custodyOptions: {
+                none: "Who has custody?",
+                wife: "Wife",
+                husband: "Husband",
+                shared: "Shared"
+            },
+            cityOptions: {
+                metro: "Major City (e.g. Toronto)",
+                tier1: "Mid-sized City",
+                tier2: "Rural Area"
+            }
+        },
+        result: {
+            calculate: "Calculate Maintenance",
+            readyTitle: "Ready to Estimate",
+            readySubtitle: "Fill in the details on the left and click \"Calculate\" to see the estimated monthly maintenance amount.",
+            estimatedTitle: "Estimated Monthly Maintenance",
+            perMonth: "per month",
+            baseAmount: "Base Amount",
+            bonusDuration: "Long Marriage Bonus",
+            bonusChildren: "Child Support",
+            adjustmentCity: "City Adjustment",
+            note: "Note:",
+            howCalculated: "How this is calculated?",
+            disclaimer: "Disclaimer: This estimation uses a model consistent with the Spousal Support Advisory Guidelines (SSAG). Actual outcomes depend on case specifics.",
+            calculateAgain: "Calculate Again"
+        },
+        faq: {
+            title: "Frequently Asked Questions",
+            subtitle: "Common queries about maintenance and alimony laws in Canada."
+        }
+    },
+    australia: {
+        header: {
+            title: "Maintenance Estimator",
+            subtitle: "Australia • Canada • UK • US • India • Mexico • Ireland • Legal Check"
+        },
+        jurisdiction: {
+            title: "Regional Jurisdiction",
+            subtitle: "Select your country to apply relevant legal standards."
+        },
+        financials: {
+            title: "Financial Details",
+            subtitle: "Enter monthly income details (AUSTRALIA).",
+            husbandIncome: "Husband's Monthly Income",
+            wifeIncome: "Wife's Monthly Income"
+        },
+        family: {
+            title: "Family & Context",
+            subtitle: "Duration of marriage and dependents affect the calculation.",
+            marriageDuration: "Marriage Duration (Years)",
+            children: "Children",
+            custody: "Child Custody",
+            cityType: "Area Type",
+            homemaker: "Is Wife a Homemaker?",
+            custodyOptions: {
+                none: "Who has custody?",
+                wife: "Wife",
+                husband: "Husband",
+                shared: "Shared"
+            },
+            cityOptions: {
+                metro: "Major City (e.g. Sydney)",
+                tier1: "Regional City",
+                tier2: "Rural / Outskirts"
+            }
+        },
+        result: {
+            calculate: "Calculate Maintenance",
+            readyTitle: "Ready to Estimate",
+            readySubtitle: "Fill in the details on the left and click \"Calculate\" to see the estimated monthly maintenance amount.",
+            estimatedTitle: "Estimated Monthly Maintenance",
+            perMonth: "per month",
+            baseAmount: "Base Amount",
+            bonusDuration: "Long Marriage Bonus",
+            bonusChildren: "Child Support",
+            adjustmentCity: "City Adjustment",
+            note: "Note:",
+            howCalculated: "How this is calculated?",
+            disclaimer: "Disclaimer: Australian law focuses on 'needs' and 'capacity'. This estimate provides a general model of expected results.",
+            calculateAgain: "Calculate Again"
+        },
+        faq: {
+            title: "Frequently Asked Questions",
+            subtitle: "Common queries about maintenance and alimony laws in Australia."
         }
     }
 };

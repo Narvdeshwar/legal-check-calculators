@@ -41,7 +41,96 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
     reset
 }) => {
 
-    const currencyPrefix = input.region === 'india' ? '₹' : input.region === 'romania' ? 'RON ' : input.region === 'ireland' ? '€' : '$';
+    const getFlagIcon = (region: string) => {
+        const flags: Record<string, React.ReactNode> = {
+            us: (
+                <svg className="w-5 h-4 rounded-sm shadow-sm" viewBox="0 0 741 390">
+                    <rect width="741" height="390" fill="#3c3b6e" />
+                    <g fill="#b22234">
+                        <rect width="741" height="30" y="0" />
+                        <rect width="741" height="30" y="60" />
+                        <rect width="741" height="30" y="120" />
+                        <rect width="741" height="30" y="180" />
+                        <rect width="741" height="30" y="240" />
+                        <rect width="741" height="30" y="300" />
+                        <rect width="741" height="30" y="360" />
+                    </g>
+                    <rect width="296" height="210" fill="#3c3b6e" />
+                    <path fill="#fff" d="M12,18 L19,30 L32,30 L21,38 L25,50 L12,42 L0,50 L4,38 L-7,30 L6,30 Z" transform="scale(0.5) translate(40,40)" />
+                    {/* Simplified US Flag */}
+                </svg>
+            ),
+            uk: (
+                <svg className="w-5 h-4 rounded-sm shadow-sm" viewBox="0 0 60 30">
+                    <clipPath id="s">
+                        <path d="M0,0 v30 h60 v-30 z" />
+                    </clipPath>
+                    <path d="M0,0 v30 h60 v-30 z" fill="#012169" />
+                    <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6" />
+                    <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" strokeWidth="4" />
+                    <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10" />
+                    <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6" />
+                </svg>
+            ),
+            india: (
+                <svg className="w-5 h-4 rounded-sm shadow-sm" viewBox="0 0 900 600">
+                    <rect width="900" height="600" fill="#f4c2c2" />
+                    <rect width="900" height="200" fill="#ff9933" />
+                    <rect width="900" height="200" y="200" fill="#ffffff" />
+                    <rect width="900" height="200" y="400" fill="#128807" />
+                    <circle cx="450" cy="300" r="80" fill="#000080" />
+                </svg>
+            ),
+            canada: (
+                <svg className="w-5 h-4 rounded-sm shadow-sm" viewBox="0 0 100 50">
+                    <rect width="100" height="50" fill="#ff0000" />
+                    <rect width="50" height="50" x="25" fill="#ffffff" />
+                    <path d="M50,10 L55,25 L70,25 L58,35 L62,50 L50,40 L38,50 L42,35 L30,25 L45,25 Z" fill="#ff0000" />
+                </svg>
+            ),
+            australia: (
+                <svg className="w-5 h-4 rounded-sm shadow-sm" viewBox="0 0 60 30">
+                    <rect width="60" height="30" fill="#00008b" />
+                    <path d="M0,0 v15 h30 v-15 z" fill="#012169" />
+                    <path d="M0,0 L30,15 M30,0 L0,15" stroke="#fff" strokeWidth="3" />
+                    <path d="M15,0 v15 M0,7.5 h30" stroke="#fff" strokeWidth="5" />
+                    <path d="M15,0 v15 M0,7.5 h30" stroke="#C8102E" strokeWidth="3" />
+                </svg>
+            ),
+            ireland: (
+                <svg className="w-5 h-4 rounded-sm shadow-sm" viewBox="0 0 6 3">
+                    <rect width="6" height="3" fill="#ffffff" />
+                    <rect width="2" height="3" fill="#169b62" />
+                    <rect width="2" height="3" x="4" fill="#ff883e" />
+                </svg>
+            ),
+            mexico: (
+                <svg className="w-5 h-4 rounded-sm shadow-sm" viewBox="0 0 7 4">
+                    <rect width="7" height="4" fill="#ffffff" />
+                    <rect width="2.33" height="4" fill="#006847" />
+                    <rect width="2.33" height="4" x="4.66" fill="#ce1126" />
+                    <circle cx="3.5" cy="2" r="0.5" fill="#a57c00" />
+                </svg>
+            ),
+            romania: (
+                <svg className="w-5 h-4 rounded-sm shadow-sm" viewBox="0 0 3 2">
+                    <rect width="1" height="2" fill="#002b7f" />
+                    <rect width="1" height="2" x="1" fill="#fcd116" />
+                    <rect width="1" height="2" x="2" fill="#ce1126" />
+                </svg>
+            )
+        };
+        return flags[region] || flags.us;
+    };
+
+    const getOptionLabel = (region: string, name: string) => (
+        <span className="flex items-center gap-3">
+            {getFlagIcon(region)}
+            <span>{name}</span>
+        </span>
+    );
+
+    const currencyPrefix = input.region === 'india' ? '₹' : input.region === 'romania' ? 'RON ' : input.region === 'ireland' ? '€' : input.region === 'uk' ? '£' : '$';
     const incomeMax = input.region === 'india' ? 500000 : 100000;
     const incomeStep = input.region === 'india' ? 1000 : 100;
 
@@ -49,32 +138,28 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Left Column: Inputs */}
             <div className="lg:col-span-7 space-y-6">
-                <Card className="animate-fade-in-up">
-                    <div className="mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
-                        <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">{t.jurisdiction.title}</h2>
-                        <p className="text-sm text-slate-500">{t.jurisdiction.subtitle}</p>
-                    </div>
-                    <div className="grid grid-cols-3 md:grid-cols-5 gap-3">
-                        {(['us', 'india', 'mexico', 'romania', 'ireland'] as const).map((r) => (
-                            <button
-                                key={r}
-                                onClick={() => updateRegion(r)}
-                                className={`py-3 px-4 rounded-xl border-2 transition-all flex flex-col items-center gap-1 ${
-                                    input.region === r 
-                                    ? 'border-amber-500 bg-amber-50/50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 font-bold' 
-                                    : 'border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
-                                }`}
-                            >
-                                <span className="text-2xl">
-                                    {r === 'us' ? '🇺🇸' : r === 'india' ? '🇮🇳' : r === 'mexico' ? '🇲🇽' : r === 'romania' ? '🇷🇴' : '🇮🇪'}
-                                </span>
-                                <span className="text-[10px] uppercase tracking-wider">{r}</span>
-                            </button>
-                        ))}
-                    </div>
+                <Card className="animate-fade-in-up !overflow-visible z-30">
+                    <Select
+                        label={t.jurisdiction.title}
+                        value={input.region}
+                        onChange={(e) => updateRegion(e.target.value as Region)}
+                        options={[
+                            { value: 'us', label: getOptionLabel('us', 'United States') as any },
+                            { value: 'uk', label: getOptionLabel('uk', 'United Kingdom') as any },
+                            { value: 'canada', label: getOptionLabel('canada', 'Canada') as any },
+                            { value: 'australia', label: getOptionLabel('australia', 'Australia') as any },
+                            { value: 'ireland', label: getOptionLabel('ireland', 'Ireland') as any },
+                            { value: 'india', label: getOptionLabel('india', 'India') as any },
+                            { value: 'mexico', label: getOptionLabel('mexico', 'Mexico') as any },
+                            { value: 'romania', label: getOptionLabel('romania', 'Romania') as any }
+                        ]}
+                    />
+                    <p className="mt-3 text-xs text-slate-400 dark:text-slate-500 italic">
+                        {t.jurisdiction.subtitle}
+                    </p>
                 </Card>
 
-                <Card className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+                <Card className="animate-fade-in-up !overflow-visible z-20" style={{ animationDelay: '0.1s' }}>
                     <div className="mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
                         <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">{t.financials.title}</h2>
                         <p className="text-sm text-slate-500">{t.financials.subtitle}</p>
@@ -102,7 +187,7 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
                     </div>
                 </Card>
 
-                <Card className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                <Card className="animate-fade-in-up !overflow-visible z-10" style={{ animationDelay: '0.2s' }}>
                     <div className="mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
                         <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">{t.family.title}</h2>
                         <p className="text-sm text-slate-500">{t.family.subtitle}</p>
