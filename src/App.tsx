@@ -2,6 +2,7 @@ import { useMaintenanceCalculator } from './modules/maintenance/hooks/useMainten
 import { MaintenanceCalculator } from './modules/maintenance/ui/MaintenanceCalculator';
 import { FAQSection } from './modules/maintenance/ui/FAQSection';
 import { translations } from './modules/maintenance/domain/translations';
+import { VisitorCounter } from './shared/ui/VisitorCounter';
 
 function App() {
   const calculator = useMaintenanceCalculator();
@@ -24,7 +25,8 @@ function App() {
       </main>
 
       <footer className="max-w-7xl mx-auto mt-20 pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
-        <p className="text-sm text-slate-500">© 2026 Legal Check Calculators • Specialized Multi-Jurisdictional Estimator</p>
+        <VisitorCounter />
+        <p className="text-sm text-slate-500 mt-4">© 2026 Legal Check Calculators • Specialized Multi-Jurisdictional Estimator</p>
       </footer>
     </div>
   );
