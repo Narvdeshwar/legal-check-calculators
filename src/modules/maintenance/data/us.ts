@@ -1,6 +1,7 @@
 import type { Translations } from "../domain/translations";
 
 export const us: Translations = {
+    currency: "USD",
     header: {
         title: "Maintenance Estimator",
         subtitle: "US • India • Mexico • UK • Australia • Canada • Legal Check"

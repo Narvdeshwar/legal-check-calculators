@@ -5,6 +5,7 @@ import { VisitorCounter } from "@/shared/ui/VisitorCounter";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Region } from "@/modules/maintenance/domain/types";
+import Link from "next/link";
 
 interface Props {
   params: Promise<{ region: string }>;
@@ -72,11 +73,6 @@ export default async function RegionPage({ params }: Props) {
         <MaintenanceCalculatorWrapper region={region as Region} />
         <FAQSection region={region as Region} t={t} />
       </main>
-
-      <footer className="max-w-7xl mx-auto mt-20 pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
-        <VisitorCounter />
-        <p className="text-sm text-slate-500 mt-4">© 2026 Legal Check Calculators • Specialized Multi-Jurisdictional Estimator</p>
-      </footer>
     </div>
   );
 }

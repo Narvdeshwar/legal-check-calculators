@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
+import { Navbar } from "@/shared/ui/Navbar";
+import { Footer } from "@/shared/ui/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -45,7 +47,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${outfit.variable} antialiased min-h-screen bg-slate-50 dark:bg-slate-950 font-inter`}
       >
-        {children}
+        <Navbar />
+        <main className="pt-20">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

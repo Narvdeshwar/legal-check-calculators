@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import * as React from 'react';
 
 import { Slider } from '../../../shared/ui/Slider';
 import { Card } from '../../../shared/ui/Card';
@@ -121,6 +121,29 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
                     <rect width="1" height="2" x="1" fill="#fcd116" />
                     <rect width="1" height="2" x="2" fill="#ce1126" />
                 </svg>
+            ),
+            pakistan: (
+                <svg className="w-5 h-4 rounded-sm shadow-sm" viewBox="0 0 3 2">
+                    <rect width="3" height="2" fill="#01411c" />
+                    <rect width="0.75" height="2" fill="#ffffff" />
+                    <circle cx="1.8" cy="1" r="0.6" fill="#ffffff" />
+                    <circle cx="2" cy="0.8" r="0.6" fill="#01411c" />
+                    <path d="M2.3,0.3 L2.4,0.6 L2.7,0.7 L2.4,0.8 L2.3,1.1 L2.2,0.8 L1.9,0.7 L2.2,0.6 Z" fill="#ffffff" />
+                </svg>
+            ),
+            germany: (
+                <svg className="w-5 h-4 rounded-sm shadow-sm" viewBox="0 0 5 3">
+                    <rect width="5" height="1" fill="#000000" />
+                    <rect width="5" height="1" y="1" fill="#dd0000" />
+                    <rect width="5" height="1" y="2" fill="#ffce00" />
+                </svg>
+            ),
+            switzerland: (
+                <svg className="w-5 h-4 rounded-sm shadow-sm" viewBox="0 0 1 1">
+                    <rect width="1" height="1" fill="#ff0000" />
+                    <rect width="0.6" height="0.15" x="0.2" y="0.425" fill="#ffffff" />
+                    <rect width="0.15" height="0.6" x="0.425" y="0.2" fill="#ffffff" />
+                </svg>
             )
         };
         return flags[region] || flags.us;
@@ -133,9 +156,9 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
         </span>
     );
 
-    const currencyPrefix = input.region === 'india' ? '₹' : input.region === 'romania' ? 'RON ' : input.region === 'ireland' ? '€' : input.region === 'uk' ? '£' : '$';
-    const incomeMax = input.region === 'india' ? 500000 : 100000;
-    const incomeStep = input.region === 'india' ? 1000 : 100;
+    const currencyPrefix = t.currency === 'INR' ? '₹' : t.currency === 'PKR' ? '₨' : t.currency === 'CHF' ? 'CHF ' : t.currency === 'EUR' ? '€' : t.currency === 'GBP' ? '£' : '$';
+    const incomeMax = input.region === 'india' || input.region === 'pakistan' ? 500000 : 100000;
+    const incomeStep = input.region === 'india' || input.region === 'pakistan' ? 1000 : 100;
 
     return (
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -145,14 +168,17 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
                     <Select
                         label={t.jurisdiction.title}
                         value={input.region}
-                        onChange={(e) => updateRegion(e.target.value as Region)}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateRegion(e.target.value as Region)}
                         options={[
                             { value: 'us', label: getOptionLabel('us', 'United States') as any },
                             { value: 'uk', label: getOptionLabel('uk', 'United Kingdom') as any },
                             { value: 'canada', label: getOptionLabel('canada', 'Canada') as any },
                             { value: 'australia', label: getOptionLabel('australia', 'Australia') as any },
+                            { value: 'germany', label: getOptionLabel('germany', 'Germany') as any },
+                            { value: 'switzerland', label: getOptionLabel('switzerland', 'Switzerland') as any },
                             { value: 'ireland', label: getOptionLabel('ireland', 'Ireland') as any },
                             { value: 'india', label: getOptionLabel('india', 'India') as any },
+                            { value: 'pakistan', label: getOptionLabel('pakistan', 'Pakistan') as any },
                             { value: 'mexico', label: getOptionLabel('mexico', 'Mexico') as any },
                             { value: 'romania', label: getOptionLabel('romania', 'Romania') as any }
                         ]}
@@ -176,7 +202,7 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
                             max={incomeMax}
                             step={incomeStep}
                             prefix={currencyPrefix}
-                            onChange={(val) => updateIncome('husbandMonthlyIncome', val)}
+                            onChange={(val: number) => updateIncome('husbandMonthlyIncome', val)}
                         />
                         <Slider
                             label={t.financials.wifeIncome || "Wife's Income"}
@@ -185,7 +211,7 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
                             max={incomeMax}
                             step={incomeStep}
                             prefix={currencyPrefix}
-                            onChange={(val) => updateIncome('wifeMonthlyIncome', val)}
+                            onChange={(val: number) => updateIncome('wifeMonthlyIncome', val)}
                         />
                     </div>
                 </Card>
@@ -202,7 +228,7 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
                             value={input.family.marriageDurationYears}
                             min={0}
                             max={50}
-                            onChange={(val) => updateFamily('marriageDurationYears', val)}
+                            onChange={(val: number) => updateFamily('marriageDurationYears', val)}
                         />
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -226,7 +252,7 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
                                     <Select
                                         label={t.family.custody}
                                         value={input.family.custody}
-                                        onChange={(e) => updateFamily('custody', e.target.value)}
+                                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateFamily('custody', e.target.value)}
                                         options={[
                                             { value: 'none', label: t.family.custodyOptions.none },
                                             { value: 'wife', label: t.family.custodyOptions.wife },
@@ -242,7 +268,7 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
                             <Select
                                 label={t.family.cityType}
                                 value={input.cityType}
-                                onChange={(e) => updateCity(e.target.value as any)}
+                                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateCity(e.target.value as any)}
                                 options={[
                                     { value: 'metro', label: t.family.cityOptions.metro },
                                     { value: 'tier-1', label: t.family.cityOptions.tier1 },

@@ -1,11 +1,11 @@
 "use client"
 
 import { useState, useMemo } from "react";
-import Link from "next/link";
-import { translations } from "@/modules/maintenance/domain/translations";
 import { Card } from "@/shared/ui/Card";
 import { VisitorCounter } from "@/shared/ui/VisitorCounter";
 import { Search, Globe, Filter } from "lucide-react";
+import Link from "next/link";
+import { translations } from "@/modules/maintenance/domain/translations";
 
 const countryData: Record<string, { name: string; flag: string; continent: string }> = {
   us: { name: 'United States', flag: '🇺🇸', continent: 'Americas' },
@@ -122,12 +122,6 @@ export default function HomePage() {
         )}
       </main>
 
-      <footer className="max-w-7xl mx-auto mt-32 pt-12 border-t border-slate-200 dark:border-slate-900 text-center">
-        <VisitorCounter />
-        <p className="text-xs text-slate-500 mt-6 font-medium tracking-widest uppercase opacity-60">
-            © 2026 Legal Check Global Platform • Multi-Jurisdictional Intelligence Engine
-        </p>
-      </footer>
     </div>
   );
 }
