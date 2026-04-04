@@ -1,6 +1,7 @@
 import type { Region } from './types';
 
 export interface Translations {
+    currency: string;
     header: {
         title: string;
         subtitle: string;
@@ -63,6 +64,7 @@ export const translations: Record<Region, Translations> = {
     us,
     india,
     mexico: {
+        currency: "MXN",
         header: {
             title: "Estimador de Pensión",
             subtitle: "EE. UU. • India • México • Reino Unido • Australia • Canadá • Control Legal"
@@ -118,6 +120,7 @@ export const translations: Record<Region, Translations> = {
         }
     },
     romania: {
+        currency: "RON",
         header: {
             title: "Calculator Pensie Alimentară",
             subtitle: "SUA • India • Mexic • Regatul Unit • Australia • Canada • Control Legal"
@@ -173,6 +176,7 @@ export const translations: Record<Region, Translations> = {
         }
     },
     ireland: {
+        currency: "EUR",
         header: {
             title: "Maintenance Estimator",
             subtitle: "UK • Australia • Canada • US • India • Mexico • Ireland • Legal Check"
@@ -228,6 +232,7 @@ export const translations: Record<Region, Translations> = {
         }
     },
     uk: {
+        currency: "GBP",
         header: {
             title: "Maintenance Estimator",
             subtitle: "UK • Australia • Canada • US • India • Mexico • Ireland • Legal Check"
@@ -283,6 +288,7 @@ export const translations: Record<Region, Translations> = {
         }
     },
     canada: {
+        currency: "CAD",
         header: {
             title: "Maintenance Estimator",
             subtitle: "Canada • UK • Australia • US • India • Mexico • Ireland • Legal Check"
@@ -338,6 +344,7 @@ export const translations: Record<Region, Translations> = {
         }
     },
     australia: {
+        currency: "AUD",
         header: {
             title: "Maintenance Estimator",
             subtitle: "Australia • Canada • UK • US • India • Mexico • Ireland • Legal Check"
@@ -390,6 +397,174 @@ export const translations: Record<Region, Translations> = {
         faq: {
             title: "Frequently Asked Questions",
             subtitle: "Common queries about maintenance and alimony laws in Australia."
+        }
+    },
+    pakistan: {
+        currency: "PKR",
+        header: {
+            title: "Maintenance Estimator",
+            subtitle: "Pakistan • US • India • UK • Canada • Global Legal Check"
+        },
+        jurisdiction: {
+            title: "Regional Jurisdiction",
+            subtitle: "Select your country for localized alimony standards."
+        },
+        financials: {
+            title: "Financial Details",
+            subtitle: "Enter monthly income (PAKISTAN).",
+            husbandIncome: "Husband's Monthly Income",
+            wifeIncome: "Wife's Monthly Income"
+        },
+        family: {
+            title: "Family & Context",
+            subtitle: "Marriage facts affecting the model.",
+            marriageDuration: "Marriage Duration (Years)",
+            children: "Children",
+            custody: "Child Custody",
+            cityType: "City Type",
+            homemaker: "Is Wife a Homemaker?",
+            custodyOptions: {
+                none: "Who has custody?",
+                wife: "Wife",
+                husband: "Husband",
+                shared: "Shared"
+            },
+            cityOptions: {
+                metro: "Major Metro (e.g. Karachi)",
+                tier1: "Urban Area",
+                tier2: "Rural Area"
+            }
+        },
+        result: {
+            calculate: "Calculate Maintenance",
+            readyTitle: "Ready to Estimate",
+            readySubtitle: "Click calculate once all fields are filled.",
+            estimatedTitle: "Estimated Monthly Maintenance",
+            perMonth: "per month",
+            baseAmount: "Base Amount",
+            bonusDuration: "Duration Bonus",
+            bonusChildren: "Child Support",
+            adjustmentCity: "Location Adjustment",
+            note: "Note:",
+            howCalculated: "How this is calculated?",
+            disclaimer: "Estimates only. Actual orders depend on personal laws and judicial discretion.",
+            calculateAgain: "Calculate Again"
+        },
+        faq: {
+            title: "Frequently Asked Questions",
+            subtitle: "Common queries for Pakistan family law."
+        }
+    },
+    germany: {
+        currency: "EUR",
+        header: {
+            title: "Unterhaltsrechner",
+            subtitle: "Deutschland • USA • Indien • UK • Globaler Rechts-Check"
+        },
+        jurisdiction: {
+            title: "Regionale Zuständigkeit",
+            subtitle: "Wählen Sie Ihr Land für lokalisierte Unterhaltsstandards."
+        },
+        financials: {
+            title: "Finanzielle Details",
+            subtitle: "Monatliches Einkommen eingeben (DEUTSCHLAND).",
+            husbandIncome: "Monatliches Einkommen des Ehemanns",
+            wifeIncome: "Monatliches Einkommen der Ehefrau"
+        },
+        family: {
+            title: "Familie & Kontext",
+            subtitle: "Faktoren für das Unterhaltsmodell.",
+            marriageDuration: "Ehedauer (Jahre)",
+            children: "Kinder",
+            custody: "Sorgerecht",
+            cityType: "Stadttyp",
+            homemaker: "Ist die Ehefrau Hausfrau?",
+            custodyOptions: {
+                none: "Wer hat das Sorgerecht?",
+                wife: "Ehefrau",
+                husband: "Ehemann",
+                shared: "Gemeinsam"
+            },
+            cityOptions: {
+                metro: "Großstadt (z. B. Berlin)",
+                tier1: "Stadtgebiet",
+                tier2: "Ländliche Gegend"
+            }
+        },
+        result: {
+            calculate: "Unterhalt berechnen",
+            readyTitle: "Bereit zur Schätzung",
+            readySubtitle: "Klicken Sie auf Berechnen.",
+            estimatedTitle: "Geschätzter monatlicher Unterhalt",
+            perMonth: "pro Monat",
+            baseAmount: "Basisbetrag",
+            bonusDuration: "Dauer-Bonus",
+            bonusChildren: "Kindesunterhalt",
+            adjustmentCity: "Standortanpassung",
+            note: "Hinweis:",
+            howCalculated: "Wie wird das berechnet?",
+            disclaimer: "Nur Schätzungen. Tatsächliche Beschlüsse hängen vom Familienrecht ab.",
+            calculateAgain: "Erneut berechnen"
+        },
+        faq: {
+            title: "Häufig gestellte Fragen",
+            subtitle: "Allgemeine Fragen zum deutschen Unterhaltsrecht."
+        }
+    },
+    switzerland: {
+        currency: "CHF",
+        header: {
+            title: "Unterhaltsrechner",
+            subtitle: "Schweiz • Deutschland • USA • Globaler Rechts-Check"
+        },
+        jurisdiction: {
+            title: "Regionale Zuständigkeit",
+            subtitle: "Wählen Sie Ihr Land für lokalisierte Unterhaltsstandards."
+        },
+        financials: {
+            title: "Finanzielle Details",
+            subtitle: "Monatliches Einkommen eingeben (SCHWEIZ).",
+            husbandIncome: "Monatliches Einkommen des Ehemanns",
+            wifeIncome: "Monatliches Einkommen der Ehefrau"
+        },
+        family: {
+            title: "Familie & Kontext",
+            subtitle: "Faktoren für das Schweizer Unterhaltsmodell.",
+            marriageDuration: "Ehedauer (Jahre)",
+            children: "Kinder",
+            custody: "Sorgerecht",
+            cityType: "Regionstyp",
+            homemaker: "Ist die Ehefrau Hausfrau?",
+            custodyOptions: {
+                none: "Wer hat das Sorgerecht?",
+                wife: "Ehefrau",
+                husband: "Ehemann",
+                shared: "Gemeinsam"
+            },
+            cityOptions: {
+                metro: "Zentrum (z. B. Zürich)",
+                tier1: "Agglomeration",
+                tier2: "Ländlich"
+            }
+        },
+        result: {
+            calculate: "Unterhalt berechnen",
+            readyTitle: "Bereit zur Schätzung",
+            readySubtitle: "Klicken Sie auf Berechnen.",
+            estimatedTitle: "Geschätzter monatlicher Unterhalt",
+            perMonth: "pro Monat",
+            baseAmount: "Basisbetrag",
+            bonusDuration: "Dauer-Bonus",
+            bonusChildren: "Kindesunterhalt",
+            adjustmentCity: "Regionen-Anpassung",
+            note: "Hinweis:",
+            howCalculated: "Wie wird das berechnet?",
+            disclaimer: "Nur Schätzungen. Tatsächliche Beschlüsse hängen von den kantonalen Praktiken ab.",
+            calculateAgain: "Erneut berechnen"
+        },
+        faq: {
+            title: "Häufig gestellte Fragen",
+            subtitle: "Allgemeine Fragen zum Schweizer Unterhaltsrecht."
         }
     }
 };

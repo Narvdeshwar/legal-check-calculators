@@ -1,4 +1,4 @@
-export type Region = 'india' | 'us' | 'mexico' | 'romania' | 'ireland' | 'uk' | 'canada' | 'australia';
+export type Region = 'india' | 'us' | 'mexico' | 'romania' | 'ireland' | 'uk' | 'canada' | 'australia' | 'pakistan' | 'germany' | 'switzerland';
 export type CityType = 'metro' | 'tier-1' | 'tier-2-rural';
 
 export interface IncomeDetails {
