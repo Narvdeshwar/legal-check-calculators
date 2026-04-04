@@ -161,9 +161,9 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
     const incomeStep = input.region === 'india' || input.region === 'pakistan' ? 1000 : 100;
 
     return (
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10 items-start">
             {/* Left Column: Inputs */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="md:col-span-7 lg:col-span-8 space-y-6">
                 <Card className="animate-fade-in-up !overflow-visible z-30">
                     <Select
                         label={t.jurisdiction.title}
@@ -286,7 +286,6 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
@@ -302,8 +301,7 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
             </div>
 
             {/* Right Column: Result - Sticky */}
-            {/* Right Column: Result - Sticky */}
-            <div className="lg:col-span-5 lg:sticky lg:top-24">
+            <div className="md:col-span-5 lg:col-span-4 md:sticky md:top-24 mt-8 md:mt-0">
                 {result ? (
                     <ReviewStep result={result} onReset={reset} t={t} />
                 ) : (
@@ -321,4 +319,3 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
         </div>
     );
 };
-

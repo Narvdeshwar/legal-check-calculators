@@ -20,9 +20,9 @@ const ComplianceLayout = ({ activePath, children }: ComplianceLayoutProps) => {
 
     return (
         <div className="min-h-screen bg-[#f8fafc] dark:bg-[#020617] font-inter transition-colors duration-500">
-            <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-12">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-8 lg:gap-16">
                 {/* Fixed-Position Sidebar Navigation */}
-                <aside className="w-full md:w-72 flex-shrink-0 relative">
+                <aside className="w-full md:w-64 lg:w-72 flex-shrink-0 relative">
                     <div className="md:sticky md:top-32 space-y-4 py-12 h-fit">
                         <div className="mb-8 px-4 flex flex-col gap-2">
                              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-amber-600">Legal Intelligence</p>
