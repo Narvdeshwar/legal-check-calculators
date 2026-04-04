@@ -1,16 +1,16 @@
 "use client"
 
-import React, { useState } from 'react';
+import { useState, type FC, type ReactNode } from 'react';
 import { Card } from '../../../shared/ui/Card';
 import type { Region } from '../domain/types';
 import type { Translations } from '../domain/translations';
 
 interface FAQItemProps {
     question: string;
-    answer: React.ReactNode;
+    answer: ReactNode;
 }
 
-const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
+const FAQItem: FC<FAQItemProps> = ({ question, answer }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -45,7 +45,7 @@ interface FAQSectionProps {
     t: Translations;
 }
 
-export const FAQSection: React.FC<FAQSectionProps> = ({ region, t }) => {
+export const FAQSection = ({ region, t }: FAQSectionProps) => {
     const allFaqs: Record<Region, { question: string, answer: string }[]> = {
         india: [
             {
@@ -125,6 +125,36 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ region, t }) => {
             {
                 question: "What is the time limit for claiming maintenance in Australia?",
                 answer: "Applications must be made within 12 months of a divorce becoming final or within 2 years of a de facto relationship ending."
+            }
+        ],
+        pakistan: [
+            {
+                question: "How is maintenance (Kharcha) calculated in Pakistan?",
+                answer: "In Pakistan, the court considers the social status, financial capacity, and needs of the family. There's no fixed percentage, but common practice often allocates 25% of the husband's income per dependent."
+            },
+            {
+                question: "Does a wife lose maintenance if she has her own income in Pakistan?",
+                answer: "Not necessarily. Muslim family law places the primary responsibility for maintenance on the husband, though the court may adjust the amount if the wife is financially independent."
+            }
+        ],
+        germany: [
+            {
+                question: "What is the 'Düsseldorfer Tabelle'?",
+                answer: "The Düsseldorfer Tabelle is the standard guideline used by German courts to determine child maintenance and spousal support, categorizing payments based on the payer's income bracket."
+            },
+            {
+                question: "How long does spousal maintenance last in Germany?",
+                answer: "It typically depends on the duration of the marriage, but it is increasingly limited to a 'transition period' to encourage both spouses to reach financial independence after divorce."
+            }
+        ],
+        switzerland: [
+            {
+                question: "How is maintenance calculated in Switzerland?",
+                answer: "Swiss courts use the 'two-step method' (zweistufige Methode): first calculating the basic needs of both parties, then distributing the remaining surplus (usually 50/50)."
+            },
+            {
+                question: "Can child support be adjusted in Switzerland?",
+                answer: "Yes, maintenance orders can be modified if the financial situation of either parent or the needs of the child change significantly and permanently."
             }
         ]
     };

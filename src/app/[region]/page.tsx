@@ -1,7 +1,6 @@
 import { translations } from "@/modules/maintenance/domain/translations";
 import { MaintenanceCalculatorWrapper } from "./CalculatorWrapper";
 import { FAQSection } from "@/modules/maintenance/ui/FAQSection";
-import { VisitorCounter } from "@/shared/ui/VisitorCounter";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Region } from "@/modules/maintenance/domain/types";
@@ -31,7 +30,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { region } = await params;
   const country = countryMap[region];
-  
+
   if (!country) return {};
 
   return {
@@ -51,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function RegionPage({ params }: Props) {
   const { region } = await params;
-  
+
   if (!translations[region as Region]) {
     notFound();
   }

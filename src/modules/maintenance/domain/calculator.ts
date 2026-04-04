@@ -53,6 +53,24 @@ const REGION_CONFIG: Record<Region, {
         basePercentage: 0.20,
         maxCap: 0.40,
         legalContext: 'Australian Family Law Act 1975 (Needs & Capacity model)'
+    },
+    'pakistan': {
+        currencySymbol: '₨',
+        basePercentage: 0.25,
+        maxCap: 0.50,
+        legalContext: 'Family Courts Act 1964 and Muslim Family Laws Ordinance 1961'
+    },
+    'germany': {
+        currencySymbol: '€',
+        basePercentage: 0.33,
+        maxCap: 0.45,
+        legalContext: 'Düsseldorfer Tabelle (German Family Law standards)'
+    },
+    'switzerland': {
+        currencySymbol: 'CHF ',
+        basePercentage: 0.30,
+        maxCap: 0.45,
+        legalContext: 'Swiss Civil Code (Maintenance of the spouse / Kindesunterhalt)'
     }
 };
 

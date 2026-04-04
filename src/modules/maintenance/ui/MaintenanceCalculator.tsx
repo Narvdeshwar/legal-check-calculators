@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { Slider } from '../../../shared/ui/Slider';
 import { Card } from '../../../shared/ui/Card';
@@ -30,7 +31,7 @@ interface MaintenanceCalculatorProps {
     reset: () => void;
 }
 
-export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
+export const MaintenanceCalculator: FC<MaintenanceCalculatorProps> = ({
     input,
     result,
     isCalculating,
@@ -45,7 +46,7 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
 }) => {
 
     const getFlagIcon = (region: string) => {
-        const flags: Record<string, React.ReactNode> = {
+        const flags: Record<string, ReactNode> = {
             us: (
                 <svg className="w-5 h-4 rounded-sm shadow-sm" viewBox="0 0 741 390">
                     <rect width="741" height="390" fill="#3c3b6e" />
@@ -60,14 +61,10 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
                     </g>
                     <rect width="296" height="210" fill="#3c3b6e" />
                     <path fill="#fff" d="M12,18 L19,30 L32,30 L21,38 L25,50 L12,42 L0,50 L4,38 L-7,30 L6,30 Z" transform="scale(0.5) translate(40,40)" />
-                    {/* Simplified US Flag */}
                 </svg>
             ),
             uk: (
                 <svg className="w-5 h-4 rounded-sm shadow-sm" viewBox="0 0 60 30">
-                    <clipPath id="s">
-                        <path d="M0,0 v30 h60 v-30 z" />
-                    </clipPath>
                     <path d="M0,0 v30 h60 v-30 z" fill="#012169" />
                     <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6" />
                     <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" strokeWidth="4" />
@@ -77,7 +74,6 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
             ),
             india: (
                 <svg className="w-5 h-4 rounded-sm shadow-sm" viewBox="0 0 900 600">
-                    <rect width="900" height="600" fill="#f4c2c2" />
                     <rect width="900" height="200" fill="#ff9933" />
                     <rect width="900" height="200" y="200" fill="#ffffff" />
                     <rect width="900" height="200" y="400" fill="#128807" />
@@ -168,7 +164,7 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
                     <Select
                         label={t.jurisdiction.title}
                         value={input.region}
-                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateRegion(e.target.value as Region)}
+                        onChange={(e: { target: { value: string } }) => updateRegion(e.target.value as Region)}
                         options={[
                             { value: 'us', label: getOptionLabel('us', 'United States') as any },
                             { value: 'uk', label: getOptionLabel('uk', 'United Kingdom') as any },
@@ -252,7 +248,7 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
                                     <Select
                                         label={t.family.custody}
                                         value={input.family.custody}
-                                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateFamily('custody', e.target.value)}
+                                        onChange={(e: { target: { value: string } }) => updateFamily('custody', e.target.value)}
                                         options={[
                                             { value: 'none', label: t.family.custodyOptions.none },
                                             { value: 'wife', label: t.family.custodyOptions.wife },
@@ -268,7 +264,7 @@ export const MaintenanceCalculator: React.FC<MaintenanceCalculatorProps> = ({
                             <Select
                                 label={t.family.cityType}
                                 value={input.cityType}
-                                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateCity(e.target.value as any)}
+                                onChange={(e: { target: { value: string } }) => updateCity(e.target.value as any)}
                                 options={[
                                     { value: 'metro', label: t.family.cityOptions.metro },
                                     { value: 'tier-1', label: t.family.cityOptions.tier1 },

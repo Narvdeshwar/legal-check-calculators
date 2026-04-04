@@ -32,7 +32,10 @@ export const useMaintenanceCalculator = () => {
             ireland: 'Ireland',
             uk: 'United Kingdom',
             canada: 'Canada',
-            australia: 'Australia'
+            australia: 'Australia',
+            pakistan: 'Pakistan',
+            germany: 'Germany',
+            switzerland: 'Switzerland'
         };
         const country = countryMap[input.region];
         document.title = `${country} Maintenance & Alimony Calculator | Legal Check`;
