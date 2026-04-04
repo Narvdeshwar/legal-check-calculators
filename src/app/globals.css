@@ -6,6 +6,9 @@
   --color-brand-500: #f59e0b;
   --color-brand-600: #d97706;
   --color-brand-700: #b45309;
+
+  --font-inter: var(--font-inter);
+  --font-outfit: var(--font-outfit);
 }
 
 :root {
