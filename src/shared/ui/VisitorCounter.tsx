@@ -1,4 +1,7 @@
+"use client"
+
 import { useState, useEffect } from 'react';
+
 
 export const VisitorCounter = () => {
     // Local simulation for "active" visitors to look dynamic

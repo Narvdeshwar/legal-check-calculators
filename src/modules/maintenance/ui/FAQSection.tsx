@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react';
 import { Card } from '../../../shared/ui/Card';
 import type { Region } from '../domain/types';
@@ -160,9 +162,10 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ region, t }) => {
 
     return (
         <section className="mt-12 w-full mx-auto">
-            <script type="application/ld+json">
-                {JSON.stringify(jsonLd)}
-            </script>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <div className="text-center mb-8">
                 <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2">
                     {t.faq.title}

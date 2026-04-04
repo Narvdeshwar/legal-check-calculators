@@ -1,0 +1,57 @@
+import type { Translations } from "../domain/translations";
+
+export const india: Translations = {
+    header: {
+        title: "Maintenance Estimator",
+        subtitle: "US • India • Mexico • UK • Australia • Canada • Legal Check"
+    },
+    jurisdiction: {
+        title: "Regional Jurisdiction",
+        subtitle: "Select your country to apply relevant legal standards."
+    },
+    financials: {
+        title: "Financial Details",
+        subtitle: "Enter monthly income details (INDIA).",
+        husbandIncome: "Husband's Monthly Income",
+        wifeIncome: "Wife's Monthly Income"
+    },
+    family: {
+        title: "Family & Context",
+        subtitle: "Duration of marriage and dependents affect the calculation.",
+        marriageDuration: "Marriage Duration (Years)",
+        children: "Children",
+        custody: "Child Custody",
+        cityType: "City Type",
+        homemaker: "Is Wife a Homemaker?",
+        custodyOptions: {
+            none: "Who has custody?",
+            wife: "Wife",
+            husband: "Husband",
+            shared: "Shared"
+        },
+        cityOptions: {
+            metro: "Metro City (Tier 1)",
+            tier1: "Tier 2 City",
+            tier2: "Rural / Small Town"
+        }
+    },
+    result: {
+        calculate: "Calculate Maintenance",
+        readyTitle: "Ready to Estimate",
+        readySubtitle: "Fill in the details on the left and click \"Calculate\" to see the estimated monthly maintenance amount.",
+        estimatedTitle: "Estimated Monthly Maintenance",
+        perMonth: "per month",
+        baseAmount: "Base Amount",
+        bonusDuration: "Long Marriage Bonus",
+        bonusChildren: "Child Support",
+        adjustmentCity: "City Adjustment",
+        note: "Note:",
+        howCalculated: "How this is calculated?",
+        disclaimer: "Disclaimer: This is an estimation based on general application of laws. Actual court orders vary significantly case-by-case.",
+        calculateAgain: "Calculate Again"
+    },
+    faq: {
+        title: "Frequently Asked Questions",
+        subtitle: "Common queries about maintenance and alimony laws in India."
+    }
+};

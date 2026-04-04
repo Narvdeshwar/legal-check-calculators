@@ -1,4 +1,7 @@
+"use client"
+
 import React from 'react';
+
 import { Slider } from '../../../shared/ui/Slider';
 import { Card } from '../../../shared/ui/Card';
 import { Button } from '../../../shared/ui/Button';
