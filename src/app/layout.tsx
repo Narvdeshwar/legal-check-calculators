@@ -17,8 +17,31 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Maintenance & Alimony Calculator | Legal Check",
-  description: "Calculate estimated monthly maintenance and alimony for US, India, Mexico, Romania, and Ireland.",
+  title: "Maintenance & Alimony Calculator | Legal Check Calculator",
+  description: "Advanced Legal Check Calculator for estimated monthly maintenance and alimony across US, India, UK, and more. Precision multi-jurisdictional legal intelligence.",
+  keywords: [
+    "legal-check-calculator",
+    "legal check calculator",
+    "legal-check-calculators",
+    "alimony calculator",
+    "maintenance calculator",
+    "divorce settlement calculator",
+    "global legal intelligence"
+  ],
+  authors: [{ name: "Legal Check Team" }],
+  openGraph: {
+    title: "Legal Check Calculator | Global Alimony & Maintenance",
+    description: "Calculate your legal maintenance and alimony with precision across multiple jurisdictions.",
+    type: "website",
+    url: "https://legal-check-calculators.vercel.app",
+    images: ["/og-image.jpg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Legal Check Calculator",
+    description: "Global Jurisdictional Intelligence for Alimony and Maintenance.",
+    images: ["/og-image.jpg"],
+  },
   verification: {
     google: "QBiojFf4raf2gquvDgPRU1uKbaiFJZR6MHbYY4PVkfg",
   },
