@@ -160,7 +160,7 @@ export const MaintenanceCalculator: FC<MaintenanceCalculatorProps> = ({
         <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10 items-start">
             {/* Left Column: Inputs */}
             <div className="md:col-span-7 lg:col-span-8 space-y-6">
-                <Card className="animate-fade-in-up !overflow-visible z-30">
+                <Card className="animate-fade-in-up !overflow-visible relative z-[100]">
                     <Select
                         label={t.jurisdiction.title}
                         value={input.region}
@@ -184,7 +184,7 @@ export const MaintenanceCalculator: FC<MaintenanceCalculatorProps> = ({
                     </p>
                 </Card>
 
-                <Card className="animate-fade-in-up !overflow-visible z-20" style={{ animationDelay: '0.1s' }}>
+                <Card className="animate-fade-in-up !overflow-visible relative z-[90]" style={{ animationDelay: '0.1s' }}>
                     <div className="mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
                         <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">{t.financials.title}</h2>
                         <p className="text-sm text-slate-500">{t.financials.subtitle}</p>
@@ -212,7 +212,7 @@ export const MaintenanceCalculator: FC<MaintenanceCalculatorProps> = ({
                     </div>
                 </Card>
 
-                <Card className="animate-fade-in-up !overflow-visible z-10" style={{ animationDelay: '0.2s' }}>
+                <Card className="animate-fade-in-up !overflow-visible relative z-[80]" style={{ animationDelay: '0.2s' }}>
                     <div className="mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
                         <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">{t.family.title}</h2>
                         <p className="text-sm text-slate-500">{t.family.subtitle}</p>

@@ -3,6 +3,11 @@ import { Card } from '../../../shared/ui/Card';
 import { Button } from '../../../shared/ui/Button';
 import type { CalculationResult } from '../domain/types';
 import type { Translations } from '../domain/translations';
+import { supabase } from '../../../utils/supabase';
+import { exportToPDF } from '../../../utils/pdfExport';
+import { useState, useEffect } from 'react';
+import { Download, Lock } from 'lucide-react';
+import { User } from '@supabase/supabase-js';
 
 interface ReviewStepProps {
     result: CalculationResult;
@@ -11,6 +16,48 @@ interface ReviewStepProps {
 }
 
 export const ReviewStep: React.FC<ReviewStepProps> = ({ result, t, onReset }) => {
+    const [user, setUser] = useState<User | null>(null);
+
+    useEffect(() => {
+        supabase.auth.getSession().then(({ data: { session } }) => setUser(session?.user ?? null));
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+            setUser(session?.user ?? null);
+        });
+        
+        // Data Collection for Authenticated Users
+        const syncData = async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user) {
+                await supabase.from('calculations').insert({
+                    user_id: session.user.id,
+                    jurisdiction: result.legalContext,
+                    amount: result.monthlyMaintenanceAmount,
+                    details: {
+                        modifiers: result.breakdown.modifiers,
+                        note: result.calculationNote
+                    }
+                });
+            }
+        };
+        syncData();
+
+        return () => subscription.unsubscribe();
+    }, [result]);
+
+    const handleExport = () => {
+        if (!user) return;
+        exportToPDF({
+            jurisdiction: result.legalContext,
+            maintenanceAmount: formatCurrency(result.monthlyMaintenanceAmount),
+            calculationDetails: {
+                baseAmount: formatCurrency(result.breakdown.baseAmount),
+                ...result.breakdown.modifiers,
+                legalCategory: result.legalContext,
+                note: result.calculationNote
+            },
+            date: new Date().toLocaleDateString()
+        });
+    };
     const formatCurrency = (amount: number) => {
         const currencyCode = result.currencySymbol === '₹' ? 'INR' 
                         : result.currencySymbol.trim() === 'RON' ? 'RON' 
@@ -85,13 +132,31 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({ result, t, onReset }) =>
                 </div>
 
                 <div className="pt-4 space-y-4">
+                    {user ? (
+                        <Button
+                            onClick={handleExport}
+                            className="w-full bg-amber-600 hover:bg-amber-700 text-white shadow-lg shadow-amber-600/20 flex items-center justify-center gap-2"
+                        >
+                            <Download className="w-4 h-4" />
+                            Export Data to PDF
+                        </Button>
+                    ) : (
+                        <div className="p-4 bg-slate-100 dark:bg-slate-800 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 text-center space-y-3">
+                            <div className="flex items-center justify-center gap-2 text-slate-500 font-medium text-xs">
+                                <Lock className="w-3.5 h-3.5" />
+                                Premium Feature Locked
+                            </div>
+                            <p className="text-[10px] text-slate-400">Sign in to unlock professional PDF exports and cloud data synchronization.</p>
+                        </div>
+                    )}
+                    
                     <p className="text-[10px] text-slate-400 text-center uppercase tracking-tighter">
                         {t.result.disclaimer}
                     </p>
                     <Button
                         variant="outline"
                         onClick={onReset}
-                        className="w-full border-slate-200 dark:border-slate-800"
+                        className="w-full border-slate-200 dark:border-slate-800 font-medium"
                     >
                         {t.result.calculateAgain}
                     </Button>

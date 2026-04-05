@@ -39,9 +39,9 @@ export default async function BlogPostPage({ params }: Props) {
             {/* Top Reading Progress & Backdrop */}
             <div className="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-amber-600/5 to-transparent pointer-events-none" />
             
-            <div className="max-w-4xl mx-auto px-6 py-20 relative z-10">
+            <div className="max-w-6xl mx-auto px-6 py-20 relative z-10">
                 {/* Header Navigation */}
-                <nav className="mb-16 flex items-center justify-between text-xs font-bold uppercase tracking-widest text-slate-400">
+                <nav className="mb-16 flex items-center justify-between text-xs font-medium uppercase tracking-widest text-slate-400">
                     <Link href="/blog" className="flex items-center gap-2 text-amber-600 dark:text-amber-500 hover:opacity-80 transition-opacity">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Hub
@@ -55,17 +55,19 @@ export default async function BlogPostPage({ params }: Props) {
 
                 <header className="mb-16 animate-fade-in">
                     <div className="flex items-center gap-4 mb-8">
-                        <div className="p-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl shadow-xl shadow-amber-500/5 text-4xl">
-                            {post.image}
+                        <div className="p-0 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl shadow-xl shadow-amber-500/5 text-4xl overflow-hidden w-16 h-16 flex items-center justify-center">
+                            {post.image.includes('/') || post.image.includes('http') ? (
+                                <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+                            ) : post.image}
                         </div>
-                        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-amber-600 dark:text-amber-500">Global Perspective</span>
+                        <span className="text-[10px] font-medium uppercase tracking-[0.4em] text-amber-600 dark:text-amber-500">Global Perspective</span>
                     </div>
 
-                    <h1 className="text-5xl md:text-7xl font-black font-outfit text-slate-900 dark:text-white mb-10 leading-[0.9] tracking-tighter">
+                    <h1 className="text-5xl md:text-7xl font-medium font-outfit text-slate-900 dark:text-white mb-10 leading-[0.9] tracking-tighter">
                         {post.title}
                     </h1>
 
-                    <div className="flex flex-wrap items-center gap-6 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-slate-400">
+                    <div className="flex flex-wrap items-center gap-6 text-[10px] md:text-xs font-medium uppercase tracking-[0.2em] text-slate-400">
                         <div className="flex items-center gap-2 pr-6 border-r border-slate-200 dark:border-slate-800">
                             <Calendar className="w-3 h-3 text-amber-600" />
                             {post.date}
@@ -85,15 +87,7 @@ export default async function BlogPostPage({ params }: Props) {
                     <div className="absolute top-0 left-0 w-full h-[6px] bg-gradient-to-r from-amber-600/10 via-amber-600 to-amber-600/10" />
                     
                     <div 
-                        className="prose prose-slate dark:prose-invert max-w-none 
-                            prose-h2:text-3xl prose-h2:font-black prose-h2:text-slate-900 dark:prose-h2:text-white prose-h2:mt-16 prose-h2:mb-8 prose-h2:font-outfit prose-h2:tracking-tight
-                            prose-h3:text-xl prose-h3:font-bold prose-h3:mt-12 prose-h3:text-slate-800 dark:prose-h3:text-white prose-h3:font-outfit
-                            prose-p:text-slate-600 dark:prose-p:text-slate-400 prose-p:leading-relaxed prose-p:text-xl prose-p:font-medium
-                            prose-li:text-slate-600 dark:prose-li:text-slate-400 prose-li:text-lg
-                            prose-blockquote:border-l-4 prose-blockquote:border-amber-600 prose-blockquote:bg-slate-50 dark:prose-blockquote:bg-slate-800/30 prose-blockquote:p-8 prose-blockquote:rounded-r-2xl
-                            prose-strong:text-amber-700 dark:prose-strong:text-amber-500 prose-strong:font-black
-                            prose-a:text-amber-600 prose-a:no-underline hover:prose-a:underline
-                        "
+                        className="blog-content font-inter"
                         dangerouslySetInnerHTML={{ __html: post.content }}
                     />
                 </Card>
@@ -102,7 +96,7 @@ export default async function BlogPostPage({ params }: Props) {
                 <footer className="mt-24 pt-20 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between gap-12">
                     <div className="flex flex-col gap-2 text-center md:text-left">
                         <Scale className="w-10 h-10 text-amber-600 mb-6 mx-auto md:mx-0 opacity-20" />
-                        <h4 className="text-xl font-black font-outfit text-slate-900 dark:text-white italic uppercase tracking-tighter">Disclaimer</h4>
+                        <h4 className="text-xl font-medium font-outfit text-slate-900 dark:text-white italic uppercase tracking-tighter">Disclaimer</h4>
                         <p className="text-sm text-slate-400 max-w-xs leading-relaxed">Intelligence reports are informational simulations and do not constitute authorized legal counsel or a binding attorney-client relationship.</p>
                     </div>
                     
@@ -111,8 +105,8 @@ export default async function BlogPostPage({ params }: Props) {
                         className="p-8 bg-slate-900 dark:bg-amber-600 rounded-3xl text-white flex items-center gap-6 hover:scale-105 transition-transform group shadow-2xl shadow-amber-600/10"
                     >
                         <div className="flex flex-col text-left">
-                            <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-60 mb-2">Platform Action</span>
-                            <span className="text-2xl font-black font-outfit tracking-tighter">Calculate My Case</span>
+                            <span className="text-[10px] font-medium uppercase tracking-[0.2em] opacity-60 mb-2">Platform Action</span>
+                            <span className="text-2xl font-medium font-outfit tracking-tighter">Calculate My Case</span>
                         </div>
                         <div className="p-3 bg-white/10 rounded-full group-hover:bg-white group-hover:text-amber-600 transition-all">
                             <ArrowLeft className="w-6 h-6 rotate-180" />

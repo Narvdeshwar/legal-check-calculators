@@ -4,6 +4,7 @@ import "./globals.css";
 import Script from "next/script";
 import { Navbar } from "@/shared/ui/Navbar";
 import { Footer } from "@/shared/ui/Footer";
+import ScrollToTop from "@/shared/ui/ScrollToTop";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -29,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-HVPE9V9P77"
@@ -45,10 +46,11 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${inter.variable} ${outfit.variable} antialiased min-h-screen bg-slate-50 dark:bg-slate-950 font-inter`}
+        className={`${inter.variable} ${outfit.variable} antialiased min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 font-inter`}
       >
+        <ScrollToTop />
         <Navbar />
-        <main className="pt-20">
+        <main className="flex-grow pt-20 overflow-x-hidden">
           {children}
         </main>
         <Footer />
