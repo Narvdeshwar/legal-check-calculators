@@ -150,20 +150,20 @@ export const ContactUs = () => (
         <p>Our centralized support hub provides direct access to our jurisdictional engineering and legal compliance teams.</p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
-            <Link href="mailto:support@legal-check.com" className="p-8 bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-800 hover:shadow-xl hover:shadow-amber-600/5 transition-all group">
+            <Link href="mailto:supportlegalcheck@gmail.com" className="p-8 bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-800 hover:shadow-xl hover:shadow-amber-600/5 transition-all group">
                 <Mail className="w-10 h-10 text-amber-600 mb-6 group-hover:scale-110 transition-transform" />
                 <h3 className="text-xl font-black mb-2 font-outfit text-slate-900 dark:text-white uppercase tracking-tight">Technical Support</h3>
-                <p className="text-amber-600 font-bold mb-4">support@legal-check.com</p>
+                <p className="text-amber-600 font-bold mb-4">supportlegalcheck@gmail.com</p>
                 <div className="flex items-center gap-2 text-xs opacity-60">
                     <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                     Response within 24 hours
                 </div>
             </Link>
             
-            <Link href="mailto:legal@legal-check.com" className="p-8 bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-800 hover:shadow-xl hover:shadow-amber-600/5 transition-all group">
+            <Link href="mailto:supportlegalcheck@gmail.com" className="p-8 bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-800 hover:shadow-xl hover:shadow-amber-600/5 transition-all group">
                 <Scale className="w-10 h-10 text-amber-600 mb-6 group-hover:scale-110 transition-transform" />
                 <h3 className="text-xl font-black mb-2 font-outfit text-slate-900 dark:text-white uppercase tracking-tight">Compliance & Data</h3>
-                <p className="text-amber-600 font-bold mb-4">legal@legal-check.com</p>
+                <p className="text-amber-600 font-bold mb-4">supportlegalcheck@gmail.com</p>
                 <p className="text-xs opacity-60">Verified jurisdictional updates only.</p>
             </Link>
         </div>
