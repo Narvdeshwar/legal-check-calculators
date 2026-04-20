@@ -24,6 +24,7 @@ export interface Translations {
         custody: string;
         cityType: string;
         homemaker: string;
+        childEducation: string;
         custodyOptions: {
             none: string;
             wife: string;
@@ -46,6 +47,7 @@ export interface Translations {
         bonusDuration: string;
         bonusChildren: string;
         adjustmentCity: string;
+        educationCost: string;
         note: string;
         howCalculated: string;
         disclaimer: string;
@@ -87,6 +89,7 @@ export const translations: Record<Region, Translations> = {
             custody: "Custodia de los Hijos",
             cityType: "Tipo de Ciudad",
             homemaker: "¿La esposa es ama de casa?",
+            childEducation: "Costo Mensual de Educación de los Hijos",
             custodyOptions: {
                 none: "¿Quién tiene la custodia?",
                 wife: "Esposa",
@@ -109,6 +112,7 @@ export const translations: Record<Region, Translations> = {
             bonusDuration: "Bono por Matrimonio Largo",
             bonusChildren: "Soporte para Hijos",
             adjustmentCity: "Ajuste por Ciudad",
+            educationCost: "Costo de Educación",
             note: "Nota:",
             howCalculated: "¿Cómo se calcula esto?",
             disclaimer: "Descargo de responsabilidad: Esta es una estimación basada en la aplicación general de las leyes. Las órdenes judiciales reales varían significativamente caso por caso.",
@@ -143,6 +147,7 @@ export const translations: Record<Region, Translations> = {
             custody: "Custodia Copiilor",
             cityType: "Tipul Orașului",
             homemaker: "Soția este Casnică?",
+            childEducation: "Cost Lunar Educație Copii",
             custodyOptions: {
                 none: "Cine are custodia?",
                 wife: "Soția",
@@ -165,6 +170,7 @@ export const translations: Record<Region, Translations> = {
             bonusDuration: "Bonus Căsătorie Lungă",
             bonusChildren: "Suport pentru Copii",
             adjustmentCity: "Ajustare Oraș",
+            educationCost: "Cost Educație",
             note: "Notă:",
             howCalculated: "Cum se calculează?",
             disclaimer: "Exonerarea de răspundere: Aceasta este o estimare bazată pe aplicarea generală a legilor. Deciziile judecătorești reale variază semnificativ de la caz la caz.",
@@ -199,6 +205,7 @@ export const translations: Record<Region, Translations> = {
             custody: "Child Custody",
             cityType: "Area Type",
             homemaker: "Is Wife a Homemaker?",
+            childEducation: "Monthly Child Education Cost",
             custodyOptions: {
                 none: "Who has custody?",
                 wife: "Wife",
@@ -221,6 +228,7 @@ export const translations: Record<Region, Translations> = {
             bonusDuration: "Long Marriage Bonus",
             bonusChildren: "Child Support",
             adjustmentCity: "City Adjustment",
+            educationCost: "Education Cost",
             note: "Note:",
             howCalculated: "How this is calculated?",
             disclaimer: "Disclaimer: This is an estimation based on general application of laws. Actual court orders vary significantly case-by-case.",
@@ -255,6 +263,7 @@ export const translations: Record<Region, Translations> = {
             custody: "Child Custody",
             cityType: "Location Type",
             homemaker: "Is Wife a Homemaker?",
+            childEducation: "Monthly Child Education Cost",
             custodyOptions: {
                 none: "Who has custody?",
                 wife: "Wife",
@@ -277,6 +286,7 @@ export const translations: Record<Region, Translations> = {
             bonusDuration: "Long Marriage Bonus",
             bonusChildren: "Child Support",
             adjustmentCity: "City Adjustment",
+            educationCost: "Education Cost",
             note: "Note:",
             howCalculated: "How this is calculated?",
             disclaimer: "Disclaimer: In the UK, no fixed formula exists; courts rule based on 'needs' and 'fairness'. This is a rough estimation only.",
@@ -311,6 +321,7 @@ export const translations: Record<Region, Translations> = {
             custody: "Child Custody",
             cityType: "Area Type",
             homemaker: "Is Wife a Homemaker?",
+            childEducation: "Monthly Child Education Cost",
             custodyOptions: {
                 none: "Who has custody?",
                 wife: "Wife",
@@ -333,6 +344,7 @@ export const translations: Record<Region, Translations> = {
             bonusDuration: "Long Marriage Bonus",
             bonusChildren: "Child Support",
             adjustmentCity: "City Adjustment",
+            educationCost: "Education Cost",
             note: "Note:",
             howCalculated: "How this is calculated?",
             disclaimer: "Disclaimer: This estimation uses a model consistent with the Spousal Support Advisory Guidelines (SSAG). Actual outcomes depend on case specifics.",
@@ -367,6 +379,7 @@ export const translations: Record<Region, Translations> = {
             custody: "Child Custody",
             cityType: "Area Type",
             homemaker: "Is Wife a Homemaker?",
+            childEducation: "Monthly Child Education Cost",
             custodyOptions: {
                 none: "Who has custody?",
                 wife: "Wife",
@@ -389,6 +402,7 @@ export const translations: Record<Region, Translations> = {
             bonusDuration: "Long Marriage Bonus",
             bonusChildren: "Child Support",
             adjustmentCity: "City Adjustment",
+            educationCost: "Education Cost",
             note: "Note:",
             howCalculated: "How this is calculated?",
             disclaimer: "Disclaimer: Australian law focuses on 'needs' and 'capacity'. This estimate provides a general model of expected results.",
@@ -423,6 +437,7 @@ export const translations: Record<Region, Translations> = {
             custody: "Child Custody",
             cityType: "City Type",
             homemaker: "Is Wife a Homemaker?",
+            childEducation: "Monthly Child Education Cost",
             custodyOptions: {
                 none: "Who has custody?",
                 wife: "Wife",
@@ -445,6 +460,7 @@ export const translations: Record<Region, Translations> = {
             bonusDuration: "Duration Bonus",
             bonusChildren: "Child Support",
             adjustmentCity: "Location Adjustment",
+            educationCost: "Education Cost",
             note: "Note:",
             howCalculated: "How this is calculated?",
             disclaimer: "Estimates only. Actual orders depend on personal laws and judicial discretion.",
@@ -479,6 +495,7 @@ export const translations: Record<Region, Translations> = {
             custody: "Sorgerecht",
             cityType: "Stadttyp",
             homemaker: "Ist die Ehefrau Hausfrau?",
+            childEducation: "Monatliche Bildungskosten für Kinder",
             custodyOptions: {
                 none: "Wer hat das Sorgerecht?",
                 wife: "Ehefrau",
@@ -501,6 +518,7 @@ export const translations: Record<Region, Translations> = {
             bonusDuration: "Dauer-Bonus",
             bonusChildren: "Kindesunterhalt",
             adjustmentCity: "Standortanpassung",
+            educationCost: "Bildungskosten",
             note: "Hinweis:",
             howCalculated: "Wie wird das berechnet?",
             disclaimer: "Nur Schätzungen. Tatsächliche Beschlüsse hängen vom Familienrecht ab.",
@@ -535,6 +553,7 @@ export const translations: Record<Region, Translations> = {
             custody: "Sorgerecht",
             cityType: "Regionstyp",
             homemaker: "Ist die Ehefrau Hausfrau?",
+            childEducation: "Monatliche Bildungskosten für Kinder",
             custodyOptions: {
                 none: "Wer hat das Sorgerecht?",
                 wife: "Ehefrau",
@@ -557,6 +576,7 @@ export const translations: Record<Region, Translations> = {
             bonusDuration: "Dauer-Bonus",
             bonusChildren: "Kindesunterhalt",
             adjustmentCity: "Regionen-Anpassung",
+            educationCost: "Bildungskosten",
             note: "Hinweis:",
             howCalculated: "Wie wird das berechnet?",
             disclaimer: "Nur Schätzungen. Tatsächliche Beschlüsse hängen von den kantonalen Praktiken ab.",

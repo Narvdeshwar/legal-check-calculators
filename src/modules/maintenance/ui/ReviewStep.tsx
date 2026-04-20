@@ -113,6 +113,13 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({ result, t, onReset }) =>
                             <span>+ {formatCurrency(result.breakdown.modifiers.children)}</span>
                         </div>
                     )}
+                    
+                    {result.breakdown.modifiers.childEducation && result.breakdown.modifiers.childEducation > 0 && (
+                        <div className="flex justify-between text-green-600 dark:text-green-400">
+                            <span>{t.result.educationCost}</span>
+                            <span>+ {formatCurrency(result.breakdown.modifiers.childEducation)}</span>
+                        </div>
+                    )}
 
                     {result.breakdown.modifiers.city !== 0 && (
                         <div className={`flex justify-between ${result.breakdown.modifiers.city > 0 ? 'text-green-600' : 'text-slate-500'}`}>

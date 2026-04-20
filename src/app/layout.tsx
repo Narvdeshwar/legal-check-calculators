@@ -17,6 +17,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://legal-check-calculators.vercel.app"),
   title: "Maintenance & Alimony Calculator | Legal Check Calculator",
   description: "Advanced Legal Check Calculator for estimated monthly maintenance and alimony across US, India, UK, and more. Precision multi-jurisdictional legal intelligence.",
   keywords: [
@@ -55,6 +56,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9834734153117480"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-HVPE9V9P77"
           strategy="afterInteractive"

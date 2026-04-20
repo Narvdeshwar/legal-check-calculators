@@ -125,7 +125,13 @@ export const calculateMaintenance = (input: CalculatorInput): CalculationResult 
         cityBonus = incomeDifference * 0.05;
     }
 
-    currentAmount = baseAmount + durationBonus + childrenBonus + cityBonus;
+    // Child Education (Specific add-on)
+    let educationBonus = 0;
+    if (family.childEducationMonthlyCost && family.childEducationMonthlyCost > 0) {
+        educationBonus = family.childEducationMonthlyCost;
+    }
+
+    currentAmount = baseAmount + durationBonus + childrenBonus + cityBonus + educationBonus;
 
     // 3. Cap Logic
     let capApplied = false;
@@ -142,6 +148,9 @@ export const calculateMaintenance = (input: CalculatorInput): CalculationResult 
     if (isWifeHomemaker && wifeIncome === 0) {
         note += " Considered homemaker/non-earning spouse status.";
     }
+    if (educationBonus > 0) {
+        note += ` Includes ${config.currencySymbol}${educationBonus} for child education expenses.`;
+    }
 
     return {
         monthlyMaintenanceAmount: Math.round(currentAmount),
@@ -153,6 +162,7 @@ export const calculateMaintenance = (input: CalculatorInput): CalculationResult 
                 duration: Math.round(durationBonus),
                 children: Math.round(childrenBonus),
                 city: Math.round(cityBonus),
+                childEducation: Math.round(educationBonus),
             },
             capApplied,
             capReason: capApplied ? `Capped at ${config.maxCap * 100}% of gross income per ${config.legalContext}` : ''

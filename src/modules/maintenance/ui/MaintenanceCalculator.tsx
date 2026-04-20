@@ -244,7 +244,7 @@ export const MaintenanceCalculator: FC<MaintenanceCalculatorProps> = ({
                             </div>
 
                             {input.family.dependentChildren > 0 && (
-                                <div className="animate-fade-in">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in">
                                     <Select
                                         label={t.family.custody}
                                         value={input.family.custody}
@@ -255,6 +255,15 @@ export const MaintenanceCalculator: FC<MaintenanceCalculatorProps> = ({
                                             { value: 'husband', label: t.family.custodyOptions.husband },
                                             { value: 'shared', label: t.family.custodyOptions.shared }
                                         ]}
+                                    />
+                                    <Slider
+                                        label={t.family.childEducation}
+                                        value={input.family.childEducationMonthlyCost || 0}
+                                        min={0}
+                                        max={input.region === 'india' ? 100000 : 10000}
+                                        step={input.region === 'india' ? 500 : 50}
+                                        prefix={currencyPrefix}
+                                        onChange={(val: number) => updateFamily('childEducationMonthlyCost', val)}
                                     />
                                 </div>
                             )}

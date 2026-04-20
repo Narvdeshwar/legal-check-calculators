@@ -24,6 +24,7 @@ export const india: Translations = {
         custody: "Child Custody",
         cityType: "City Type",
         homemaker: "Is Wife a Homemaker?",
+        childEducation: "Monthly Child Education Cost",
         custodyOptions: {
             none: "Who has custody?",
             wife: "Wife",
@@ -46,6 +47,7 @@ export const india: Translations = {
         bonusDuration: "Long Marriage Bonus",
         bonusChildren: "Child Support",
         adjustmentCity: "City Adjustment",
+        educationCost: "Education Cost",
         note: "Note:",
         howCalculated: "How this is calculated?",
         disclaimer: "Disclaimer: This is an estimation based on general application of laws. Actual court orders vary significantly case-by-case.",

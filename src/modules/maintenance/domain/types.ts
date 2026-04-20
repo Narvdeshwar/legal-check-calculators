@@ -18,6 +18,7 @@ export interface FamilyDetails {
     marriageDurationYears: number;
     dependentChildren: number;
     custody: 'none' | 'wife' | 'husband' | 'shared';
+    childEducationMonthlyCost?: number;
 }
 
 export interface CalculationResult {
@@ -30,6 +31,7 @@ export interface CalculationResult {
             duration: number;
             children: number;
             city: number;
+            childEducation?: number;
         };
         capApplied: boolean;
         capReason?: string;
