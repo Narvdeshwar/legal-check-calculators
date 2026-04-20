@@ -130,7 +130,7 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({ result, t, onReset }) =>
                     )}
                 </div>
 
-                <AdUnit slotId="9876543210" format="fluid" className="mx-2" />
+                <AdUnit slotId="7827466855" format="fluid" className="mx-2" />
 
                 <div className="p-4 bg-slate-900/5 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-slate-800">
                     <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed italic">

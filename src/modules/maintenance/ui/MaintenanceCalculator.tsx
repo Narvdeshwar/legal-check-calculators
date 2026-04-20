@@ -308,7 +308,7 @@ export const MaintenanceCalculator: FC<MaintenanceCalculatorProps> = ({
 
             {/* Right Column: Result - Sticky */}
             <div className="md:col-span-5 lg:col-span-4 md:sticky md:top-24 mt-8 md:mt-0 space-y-6">
-                <AdUnit slotId="1234567890" format="rectangle" className="hidden lg:flex" />
+                <AdUnit slotId="7827466855" format="rectangle" className="hidden lg:flex" />
                 
                 {result ? (
                     <ReviewStep result={result} onReset={reset} t={t} />
