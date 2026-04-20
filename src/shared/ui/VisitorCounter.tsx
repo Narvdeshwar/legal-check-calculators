@@ -13,9 +13,7 @@ export const VisitorCounter = () => {
         // 1. Fetch/Increment Global Count on mount
         const fetchGlobalCount = async () => {
             try {
-                // We use a unique namespace and key.
-                // "up" increments the count every time the page loads (once per session/mount)
-                const response = await fetch('https://api.counterapi.dev/v1/legal-check-calculators-shri/visitor-count/up');
+                const response = await fetch('/api/counter');
                 const data = await response.json();
                 if (data && typeof data.count === 'number') {
                     setGlobalTotal(data.count);

@@ -33,10 +33,10 @@ export const AdUnit = ({ slotId, format = 'auto', className = '', style = { disp
   }, [slotId]);
 
   return (
-    <div className={`ad-wrapper overflow-hidden bg-slate-100/50 dark:bg-slate-800/30 rounded-xl border border-dashed border-slate-200 dark:border-slate-700 min-h-[100px] flex items-center justify-center ${className}`}>
+    <div className={`ad-wrapper overflow-hidden bg-slate-100/50 dark:bg-slate-800/30 rounded-xl border border-dashed border-slate-200 dark:border-slate-700 min-h-[250px] min-w-[250px] w-full flex items-center justify-center relative ${className}`}>
       <ins
         className="adsbygoogle"
-        style={style}
+        style={{ ...style, minWidth: '250px', minHeight: '250px' }}
         data-ad-client="ca-pub-9834734153117480"
         data-ad-slot={slotId}
         data-ad-format={format}
