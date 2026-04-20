@@ -8,6 +8,7 @@ import { Card } from '../../../shared/ui/Card';
 import { Button } from '../../../shared/ui/Button';
 import { Select } from '../../../shared/ui/Select';
 import { ReviewStep } from './ReviewStep';
+import { AdUnit } from '../../../shared/ui/AdUnit';
 import type { Region, IncomeDetails, FamilyDetails, CityType, CalculationResult } from '../domain/types';
 import type { Translations } from '../domain/translations';
 
@@ -306,7 +307,9 @@ export const MaintenanceCalculator: FC<MaintenanceCalculatorProps> = ({
             </div>
 
             {/* Right Column: Result - Sticky */}
-            <div className="md:col-span-5 lg:col-span-4 md:sticky md:top-24 mt-8 md:mt-0">
+            <div className="md:col-span-5 lg:col-span-4 md:sticky md:top-24 mt-8 md:mt-0 space-y-6">
+                <AdUnit slotId="1234567890" format="rectangle" className="hidden lg:flex" />
+                
                 {result ? (
                     <ReviewStep result={result} onReset={reset} t={t} />
                 ) : (

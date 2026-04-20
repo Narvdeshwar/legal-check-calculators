@@ -12,6 +12,7 @@ const INITIAL_STATE: CalculatorInput = {
         marriageDurationYears: 5,
         dependentChildren: 0,
         custody: 'none',
+        childEducationMonthlyCost: 0,
     },
     cityType: 'tier-1',
     isWifeHomemaker: true,
@@ -39,7 +40,7 @@ export const useMaintenanceCalculator = () => {
         };
         const country = countryMap[input.region];
         document.title = `${country} Maintenance & Alimony Calculator | Legal Check`;
-        
+
         // Update meta description
         const metaDescription = document.querySelector('meta[name="description"]');
         if (metaDescription) {
@@ -48,10 +49,10 @@ export const useMaintenanceCalculator = () => {
     }, [input.region]);
 
     const updateRegion = useCallback((region: Region) => {
-        setInput(prev => ({ 
-            ...prev, 
+        setInput(prev => ({
+            ...prev,
             region,
-            income: region === 'india' ? { husbandMonthlyIncome: 50000, wifeMonthlyIncome: 0 } 
+            income: region === 'india' ? { husbandMonthlyIncome: 50000, wifeMonthlyIncome: 0 }
                   : region === 'romania' ? { husbandMonthlyIncome: 10000, wifeMonthlyIncome: 0 }
                   : region === 'ireland' ? { husbandMonthlyIncome: 6000, wifeMonthlyIncome: 0 }
                   : { husbandMonthlyIncome: 5000, wifeMonthlyIncome: 0 }

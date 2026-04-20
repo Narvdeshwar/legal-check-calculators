@@ -8,6 +8,7 @@ import { exportToPDF } from '../../../utils/pdfExport';
 import { useState, useEffect } from 'react';
 import { Download, Lock } from 'lucide-react';
 import { User } from '@supabase/supabase-js';
+import { AdUnit } from '../../../shared/ui/AdUnit';
 
 interface ReviewStepProps {
     result: CalculationResult;
@@ -128,6 +129,8 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({ result, t, onReset }) =>
                         </div>
                     )}
                 </div>
+
+                <AdUnit slotId="9876543210" format="fluid" className="mx-2" />
 
                 <div className="p-4 bg-slate-900/5 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-slate-800">
                     <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed italic">
