@@ -76,6 +76,36 @@ export default function RootLayout({
             gtag('config', 'G-HVPE9V9P77');
           `}
         </Script>
+        <Script id="structured-data" strategy="afterInteractive">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Legal Check Calculator",
+              "url": "https://legal-check-calculators.vercel.app",
+              "logo": "https://legal-check-calculators.vercel.app/icon.png",
+              "sameAs": [
+                "https://twitter.com/legalcheck",
+                "https://linkedin.com/company/legalcheck"
+              ]
+            }
+          `}
+        </Script>
+        <Script id="website-data" strategy="afterInteractive">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Legal Check Calculator",
+              "url": "https://legal-check-calculators.vercel.app",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://legal-check-calculators.vercel.app/blog?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          `}
+        </Script>
       </head>
       <body
         className={`${inter.variable} ${outfit.variable} antialiased min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 font-inter`}

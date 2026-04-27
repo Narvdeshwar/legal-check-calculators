@@ -75,7 +75,7 @@ const REGION_CONFIG: Record<Region, {
 };
 
 export const calculateMaintenance = (input: CalculatorInput): CalculationResult => {
-    const { income, family, cityType, isWifeHomemaker, region } = input;
+    const { income, family, cityType, isWifeHomemaker, region, subRegion } = input;
     const config = REGION_CONFIG[region || 'india'];
 
     // 1. Base Rule
@@ -99,7 +99,22 @@ export const calculateMaintenance = (input: CalculatorInput): CalculationResult 
     }
 
     // Base Calculation
-    let currentAmount = incomeDifference * config.basePercentage;
+    let currentBasePercentage = config.basePercentage;
+    let localLegalNote = config.legalContext;
+
+    // Sub-region fine-tuning (Phase 1)
+    if (region === 'us' && subRegion === 'California') {
+        currentBasePercentage = 0.25; // California alimony often uses a 40% of high vs 50% of low model, simplified here
+        localLegalNote = 'California Family Code Section 4320';
+    } else if (region === 'canada' && subRegion === 'Ontario') {
+        currentBasePercentage = 0.30; // Ontario SSAG (Spousal Support Advisory Guidelines)
+        localLegalNote = 'Ontario Family Law Act / SSAG Canada';
+    } else if (region === 'india' && subRegion === 'Maharashtra') {
+        currentBasePercentage = 0.25;
+        localLegalNote = 'Section 125 CrPC / Hindu Marriage Act (Bombay High Court precedents)';
+    }
+
+    let currentAmount = incomeDifference * currentBasePercentage;
     const baseAmount = currentAmount;
 
     // 2. Modifiers
@@ -144,7 +159,7 @@ export const calculateMaintenance = (input: CalculatorInput): CalculationResult 
     }
 
     // Note construction
-    let note = `Estimated based on ${config.basePercentage * 100}% of income difference + jurisdictional modifiers (${config.legalContext}).`;
+    let note = `Estimated based on ${currentBasePercentage * 100}% of income difference + jurisdictional modifiers. Referenced authority: ${localLegalNote}.`;
     if (isWifeHomemaker && wifeIncome === 0) {
         note += " Considered homemaker/non-earning spouse status.";
     }
@@ -155,7 +170,7 @@ export const calculateMaintenance = (input: CalculatorInput): CalculationResult 
     return {
         monthlyMaintenanceAmount: Math.round(currentAmount),
         currencySymbol: config.currencySymbol,
-        legalContext: config.legalContext,
+        legalContext: localLegalNote,
         breakdown: {
             baseAmount: Math.round(baseAmount),
             modifiers: {
@@ -165,7 +180,7 @@ export const calculateMaintenance = (input: CalculatorInput): CalculationResult 
                 childEducation: Math.round(educationBonus),
             },
             capApplied,
-            capReason: capApplied ? `Capped at ${config.maxCap * 100}% of gross income per ${config.legalContext}` : ''
+            capReason: capApplied ? `Capped at ${config.maxCap * 100}% of gross income per ${localLegalNote}` : ''
         },
         calculationNote: note
     };

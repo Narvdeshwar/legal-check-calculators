@@ -92,6 +92,26 @@ export const Footer = () => {
                     </div>
                 </div>
 
+                <div className="mb-20 p-8 md:p-12 rounded-[40px] bg-gradient-to-r from-amber-600/10 to-orange-600/5 border border-amber-600/20 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-amber-600/5 rounded-full blur-[80px] -mr-40 -mt-40 transition-transform group-hover:scale-110 duration-700" />
+                    <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
+                        <div className="max-w-xl text-center md:text-left">
+                            <h3 className="text-2xl md:text-3xl font-medium font-outfit text-white mb-4 tracking-tighter">
+                                Need Expert <span className="text-amber-500">Legal Representation?</span>
+                            </h3>
+                            <p className="text-sm md:text-base text-slate-400 leading-relaxed">
+                                Our calculator provides estimations, but complex cases require professional oversight. Connect with certified family law attorneys in your jurisdiction.
+                            </p>
+                        </div>
+                        <Link 
+                            href="/contact" 
+                            className="px-10 py-5 bg-amber-600 hover:bg-amber-500 text-white font-medium rounded-2xl transition-all shadow-xl shadow-amber-600/20 whitespace-nowrap group-hover:scale-105"
+                        >
+                            Get Professional Help
+                        </Link>
+                    </div>
+                </div>
+
                 {/* Final Footer Row */}
                 <div className="pt-12 border-t border-slate-900 flex flex-col md:flex-row items-center justify-between gap-10">
                     <div className="flex flex-col gap-3 items-center md:items-start text-center md:text-left">

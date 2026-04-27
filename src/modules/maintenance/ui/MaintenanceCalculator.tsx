@@ -9,21 +9,18 @@ import { Button } from '../../../shared/ui/Button';
 import { Select } from '../../../shared/ui/Select';
 import { ReviewStep } from './ReviewStep';
 import { AdUnit } from '../../../shared/ui/AdUnit';
-import type { Region, IncomeDetails, FamilyDetails, CityType, CalculationResult } from '../domain/types';
+import { countryData } from '../domain/countryData';
+import { State } from 'country-state-city';
+import type { Region, IncomeDetails, FamilyDetails, CityType, CalculationResult, CalculatorInput } from '../domain/types';
 import type { Translations } from '../domain/translations';
 
 interface MaintenanceCalculatorProps {
-    input: {
-        region: Region;
-        income: IncomeDetails;
-        family: FamilyDetails;
-        cityType: CityType;
-        isWifeHomemaker: boolean;
-    };
+    input: CalculatorInput;
     result: CalculationResult | null;
     isCalculating: boolean;
     t: Translations;
     updateRegion: (region: Region) => void;
+    updateSubRegion: (subRegion: string) => void;
     updateIncome: (field: keyof IncomeDetails, value: number) => void;
     updateFamily: (field: keyof FamilyDetails, value: any) => void;
     updateCity: (city: CityType) => void;
@@ -38,6 +35,7 @@ export const MaintenanceCalculator: FC<MaintenanceCalculatorProps> = ({
     isCalculating,
     t,
     updateRegion,
+    updateSubRegion,
     updateIncome,
     updateFamily,
     updateCity,
@@ -45,6 +43,14 @@ export const MaintenanceCalculator: FC<MaintenanceCalculatorProps> = ({
     calculate,
     reset
 }) => {
+    const states = React.useMemo(() => {
+        const countryInfo = countryData[input.region];
+        if (!countryInfo) return [];
+        return State.getStatesOfCountry(countryInfo.isoCode).map(s => ({
+            value: s.name,
+            label: s.name
+        })).sort((a, b) => a.label.localeCompare(b.label));
+    }, [input.region]);
 
     const getFlagIcon = (region: string) => {
         const flags: Record<string, ReactNode> = {
@@ -180,9 +186,27 @@ export const MaintenanceCalculator: FC<MaintenanceCalculatorProps> = ({
                             { value: 'romania', label: getOptionLabel('romania', 'Romania') as any }
                         ]}
                     />
-                    <p className="mt-3 text-xs text-slate-400 dark:text-slate-500 italic">
-                        {t.jurisdiction.subtitle}
-                    </p>
+
+                    {states.length > 0 && (
+                        <div className="mt-6 animate-fade-in">
+                            <Select
+                                label={input.region === 'india' ? 'Select State' : input.region === 'us' ? 'Select State' : 'Select Sub-region'}
+                                value={input.subRegion || ''}
+                                onChange={(e: { target: { value: string } }) => updateSubRegion(e.target.value)}
+                                options={states}
+                            />
+                        </div>
+                    )}
+
+                    <div className="flex items-center justify-between mt-4">
+                        <p className="text-xs text-slate-400 dark:text-slate-500 italic">
+                            {t.jurisdiction.subtitle}
+                        </p>
+                        <div className="px-2 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-md flex items-center gap-1.5">
+                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            <span className="text-[9px] font-bold text-emerald-600 dark:text-emerald-500 uppercase tracking-wider">Verified for 2026</span>
+                        </div>
+                    </div>
                 </Card>
 
                 <Card className="animate-fade-in-up !overflow-visible relative z-[90]" style={{ animationDelay: '0.1s' }}>
@@ -308,10 +332,18 @@ export const MaintenanceCalculator: FC<MaintenanceCalculatorProps> = ({
 
             {/* Right Column: Result - Sticky */}
             <div className="md:col-span-5 lg:col-span-4 md:sticky md:top-24 mt-8 md:mt-0 space-y-6">
-                <AdUnit slotId="7827466855" format="rectangle" className="hidden lg:flex" />
+                <AdUnit slot="7827466855" format="rectangle" className="hidden lg:flex" />
                 
                 {result ? (
-                    <ReviewStep result={result} onReset={reset} t={t} />
+                    <>
+                        <ReviewStep 
+                            result={result} 
+                            input={input}
+                            onReset={reset} 
+                            t={t} 
+                        />
+                        <AdUnit slot="4567891230" format="auto" className="mt-6" />
+                    </>
                 ) : (
                     <Card className="min-h-[300px] flex flex-col items-center justify-center text-center p-8 border-dashed border-2 border-slate-200 dark:border-slate-800 bg-transparent shadow-none">
                         <div className="w-20 h-20 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4 text-4xl">

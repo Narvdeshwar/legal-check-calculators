@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Calendar, User, Clock, ChevronRight, Scale } from "lucide-react";
 import { Metadata } from "next";
+import Script from "next/script";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -34,8 +35,36 @@ export default async function BlogPostPage({ params }: Props) {
         notFound();
     }
 
+    const blogSchema = {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.excerpt,
+      "image": `https://legal-check-calculators.vercel.app${post.image}`,
+      "datePublished": new Date(post.date).toISOString(),
+      "author": {
+        "@type": "Person",
+        "name": post.author
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Legal Check Calculator",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://legal-check-calculators.vercel.app/icon.png"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": `https://legal-check-calculators.vercel.app/blog/${post.slug}`
+      }
+    };
+
     return (
         <article className="min-h-screen bg-slate-50 dark:bg-[#0c1425] transition-colors duration-500 overflow-x-hidden font-inter">
+            <Script id={`schema-blog-${post.slug}`} type="application/ld+json">
+              {JSON.stringify(blogSchema)}
+            </Script>
             {/* Top Reading Progress & Backdrop */}
             <div className="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-amber-600/5 to-transparent pointer-events-none" />
             

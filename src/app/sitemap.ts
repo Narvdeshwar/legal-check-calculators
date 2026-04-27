@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { translations } from '@/modules/maintenance/domain/translations';
+import { blogPosts } from '@/modules/blog/data/posts';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://legal-check-calculators.vercel.app';
@@ -12,6 +13,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
     }));
 
+    const blogUrls = blogPosts.map((post) => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: new Date(post.date),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }));
+
     const staticPages = [
         '',
         '/about',
@@ -19,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/privacy-policy',
         '/terms',
         '/disclaimer',
+        '/blog',
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
@@ -26,5 +35,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: route === '' ? 1 : 0.5,
     }));
 
-    return [...staticPages, ...regionUrls];
+    return [...staticPages, ...regionUrls, ...blogUrls];
 }

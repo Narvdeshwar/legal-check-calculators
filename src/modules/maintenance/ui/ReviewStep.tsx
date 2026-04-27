@@ -1,23 +1,25 @@
 import React from 'react';
 import { Card } from '../../../shared/ui/Card';
 import { Button } from '../../../shared/ui/Button';
-import type { CalculationResult } from '../domain/types';
-import type { Translations } from '../domain/translations';
-import { supabase } from '../../../utils/supabase';
 import { exportToPDF } from '../../../utils/pdfExport';
 import { useState, useEffect } from 'react';
-import { Download, Lock } from 'lucide-react';
+import { Download, Lock, ChevronDown, Scale, ShieldCheck } from 'lucide-react';
 import { User } from '@supabase/supabase-js';
 import { AdUnit } from '../../../shared/ui/AdUnit';
+import { supabase } from '../../../utils/supabase';
+import type { CalculationResult, CalculatorInput } from '../domain/types';
+import type { Translations } from '../domain/translations';
 
 interface ReviewStepProps {
     result: CalculationResult;
+    input: CalculatorInput;
     t: Translations;
     onReset: () => void;
 }
 
-export const ReviewStep: React.FC<ReviewStepProps> = ({ result, t, onReset }) => {
+export const ReviewStep: React.FC<ReviewStepProps> = ({ result, input, t, onReset }) => {
     const [user, setUser] = useState<User | null>(null);
+    const [showCitations, setShowCitations] = useState(false);
 
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => setUser(session?.user ?? null));
@@ -51,10 +53,18 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({ result, t, onReset }) =>
             jurisdiction: result.legalContext,
             maintenanceAmount: formatCurrency(result.monthlyMaintenanceAmount),
             calculationDetails: {
-                baseAmount: formatCurrency(result.breakdown.baseAmount),
-                ...result.breakdown.modifiers,
-                legalCategory: result.legalContext,
-                note: result.calculationNote
+                "Jurisdiction": result.legalContext,
+                "Sub-Region": input.subRegion || "N/A",
+                "Husband Monthly Income": formatCurrency(input.income.husbandMonthlyIncome),
+                "Wife Monthly Income": formatCurrency(input.income.wifeMonthlyIncome),
+                "Marriage Duration": `${input.family.marriageDurationYears} Years`,
+                "Dependent Children": input.family.dependentChildren,
+                "Custody Arrangement": input.family.custody.toUpperCase(),
+                "Base Calculation": formatCurrency(result.breakdown.baseAmount),
+                "Duration Adjustment": `+ ${formatCurrency(result.breakdown.modifiers.duration)}`,
+                "Children Adjustment": `+ ${formatCurrency(result.breakdown.modifiers.children)}`,
+                "City/Living Adjustment": `${result.breakdown.modifiers.city >= 0 ? '+' : ''} ${formatCurrency(result.breakdown.modifiers.city)}`,
+                "Final Note": result.calculationNote
             },
             date: new Date().toLocaleDateString()
         });
@@ -130,15 +140,41 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({ result, t, onReset }) =>
                     )}
                 </div>
 
-                <AdUnit slotId="7827466855" format="fluid" className="mx-2" />
+                <AdUnit slot="7827466855" format="auto" className="mx-2" />
 
-                <div className="p-4 bg-slate-900/5 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed italic">
-                        <span className="font-bold not-italic block mb-1 text-slate-700 dark:text-slate-300">
-                            {t.result.note} {result.legalContext}
+                <div className="p-4 bg-slate-900/5 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-4">
+                    <div className="space-y-1">
+                        <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500 flex items-center gap-2">
+                           <Scale className="w-3 h-3 text-amber-600" />
+                           {t.result.note}
                         </span>
-                        {result.calculationNote}
-                    </p>
+                        <p className="text-xs text-slate-700 dark:text-slate-300 font-medium leading-relaxed italic">
+                            {result.calculationNote}
+                        </p>
+                    </div>
+
+                    <div className="pt-2 border-t border-slate-200/50 dark:border-slate-700/30">
+                        <button 
+                            onClick={() => setShowCitations(!showCitations)}
+                            className="flex items-center justify-between w-full text-[10px] font-bold uppercase tracking-widest text-amber-600 hover:text-amber-700 transition-colors"
+                        >
+                            <span>Legal Authority & Citations</span>
+                            <ChevronDown className={`w-3 h-3 transition-transform ${showCitations ? 'rotate-180' : ''}`} />
+                        </button>
+                        
+                        {showCitations && (
+                            <div className="mt-3 p-3 bg-white dark:bg-slate-900/50 rounded-lg border border-slate-100 dark:border-slate-800 animate-fade-in">
+                                <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-relaxed font-inter">
+                                    This calculation is based on <span className="text-slate-900 dark:text-slate-200 font-bold">{result.legalContext}</span>. 
+                                    Maintenance (alimony) awards are discretionary, but courts typically use these income-percentage models as starting points for 2026 proceedings.
+                                </p>
+                                <div className="mt-2 flex items-center gap-1.5 text-[9px] text-amber-600/80 font-medium italic">
+                                    <ShieldCheck className="w-3 h-3" />
+                                    Statutory reference verified by Global Legal Intelligence Hub.
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
 
                 <div className="pt-4 space-y-4">

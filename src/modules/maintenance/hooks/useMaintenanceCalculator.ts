@@ -1,9 +1,13 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { CalculatorInput, CalculationResult, CityType, Region } from '../domain/types';
 import { calculateMaintenance } from '../domain/calculator';
+import { countryData } from '../domain/countryData';
+
+import { State } from 'country-state-city';
 
 const INITIAL_STATE: CalculatorInput = {
     region: 'us', // Defaulting to US as it has the highest traffic
+    subRegion: 'California',
     income: {
         husbandMonthlyIncome: 5000,
         wifeMonthlyIncome: 0,
@@ -49,14 +53,22 @@ export const useMaintenanceCalculator = () => {
     }, [input.region]);
 
     const updateRegion = useCallback((region: Region) => {
-        setInput(prev => ({
-            ...prev,
+        const data = countryData[region];
+        const subRegions = State.getStatesOfCountry(data.isoCode);
+        
+        setInput(prev => ({ 
+            ...prev, 
             region,
-            income: region === 'india' ? { husbandMonthlyIncome: 50000, wifeMonthlyIncome: 0 }
+            subRegion: subRegions.length > 0 ? subRegions[0].name : undefined,
+            income: region === 'india' ? { husbandMonthlyIncome: 50000, wifeMonthlyIncome: 0 } 
                   : region === 'romania' ? { husbandMonthlyIncome: 10000, wifeMonthlyIncome: 0 }
                   : region === 'ireland' ? { husbandMonthlyIncome: 6000, wifeMonthlyIncome: 0 }
                   : { husbandMonthlyIncome: 5000, wifeMonthlyIncome: 0 }
         }));
+    }, []);
+
+    const updateSubRegion = useCallback((subRegion: string) => {
+        setInput(prev => ({ ...prev, subRegion }));
     }, []);
 
     const updateIncome = useCallback((field: keyof CalculatorInput['income'], value: number) => {
@@ -101,6 +113,7 @@ export const useMaintenanceCalculator = () => {
         result,
         isCalculating,
         updateRegion,
+        updateSubRegion,
         updateIncome,
         updateFamily,
         updateCity,

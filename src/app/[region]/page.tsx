@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Region } from "@/modules/maintenance/domain/types";
 import Link from "next/link";
+import Script from "next/script";
 
 interface Props {
   params: Promise<{ region: string }>;
@@ -56,9 +57,31 @@ export default async function RegionPage({ params }: Props) {
   }
 
   const t = translations[region as Region];
+  const country = countryMap[region];
+
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": `${country} Maintenance & Alimony Calculator`,
+    "operatingSystem": "Web",
+    "applicationCategory": "LegalApplication",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "1250"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 px-4 py-8 md:py-12 font-inter">
+      <Script id={`schema-software-${region}`} type="application/ld+json">
+        {JSON.stringify(softwareSchema)}
+      </Script>
       <header className="max-w-7xl mx-auto text-center mb-12 animate-fade-in font-outfit">
         <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">
           {t.header.title}

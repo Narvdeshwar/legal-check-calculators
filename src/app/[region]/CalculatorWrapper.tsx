@@ -7,6 +7,8 @@ import { Region } from "@/modules/maintenance/domain/types";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
+import { ShareResults } from "@/modules/maintenance/ui/ShareResults";
+
 interface Props {
   region: Region;
 }
@@ -28,10 +30,14 @@ export function MaintenanceCalculatorWrapper({ region }: Props) {
   };
 
   return (
-    <MaintenanceCalculator 
-      {...calculator} 
-      t={t} 
-      updateRegion={handleRegionChange} 
-    />
+    <div className="space-y-12">
+      <MaintenanceCalculator 
+        {...calculator} 
+        t={t} 
+        updateRegion={handleRegionChange}
+        updateSubRegion={calculator.updateSubRegion} 
+      />
+      <ShareResults />
+    </div>
   );
 }

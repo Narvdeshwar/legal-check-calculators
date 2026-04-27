@@ -8,6 +8,7 @@ export interface IncomeDetails {
 
 export interface CalculatorInput {
     region: Region;
+    subRegion?: string;
     income: IncomeDetails;
     family: FamilyDetails;
     cityType: CityType;
